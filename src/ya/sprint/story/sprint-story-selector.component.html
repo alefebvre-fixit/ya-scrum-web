@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Story Selector</h2>
+<mat-dialog-content>
+
+
+  <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm" [class.mat-selected-title]="selectedRows.length">
+          <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+            <span *ngIf="!selectedRows.length" class="mat-title">Select stories</span>
+            <span *ngIf="selectedRows.length" class="mat-body-1">{{selectedRows.length}} stories selected</span>
+          </span>
+          <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)" flex>
+          </td-search-box>
+          <button mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>  
+    <mat-divider></mat-divider>
+    <td-data-table #dataTable 
+        [data]="filteredData" 
+        [columns]="columns" 
+        [selectable]="true" 
+        [clickable]="false" 
+        [multiple]="true"
+        [sortable]="true" 
+        [sortBy]="sortBy" 
+        [(ngModel)]="selectedRows" 
+        [sortOrder]="sortOrder" 
+        (sortChange)="sort($event)">
+    </td-data-table>
+    <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+        <h3>No results to display.</h3>
+    </div>
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="select()">SELECT</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button mat-button mat-dialog-close>CANCEL</button>
+</mat-dialog-actions>
+
+
+
+
+

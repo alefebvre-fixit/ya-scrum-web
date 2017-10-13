@@ -1,0 +1,30 @@
+@import '../../../ya-theme';
+
+
+
+mat-card{
+    padding:60px;
+}
+
+.positioner{
+    padding-top: 60px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.google-button{
+    background-color: #dd4b39;
+    color: white;
+}
+
+.ya-title{
+    color: $blue-light;
+}
+
+.ya-sub-title{
+    color: $title-grey;
+}
+
+.input-full-width{
+    width: 100%;
+}

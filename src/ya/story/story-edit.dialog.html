@@ -1,0 +1,64 @@
+<div class="dialog-header">
+    <h2 *ngIf="story.id">Update Story</h2>
+    <h2 *ngIf="!story.id">Create new Story</h2>
+</div>
+
+<form [formGroup]="storyForm" *ngIf="storyForm" autocomplete="off" novalidate>
+    <div class="dialog-content">
+        <mat-dialog-content>
+            <p>
+                <mat-form-field style="width:60%">
+                    <input matInput type="text" placeholder="Title" formControlName="name">
+                </mat-form-field>
+                 <mat-form-field style="width:15%">
+                    <mat-select placeholder="Type" formControlName="type">
+                        <mat-option *ngFor="let type of typeList" [value]="type.key">
+                            {{type.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field style="width:15%">
+                    <mat-select placeholder="Theme" formControlName="theme">
+                        <mat-option *ngFor="let theme of themeList" [value]="theme">
+                            {{theme}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>  
+            </p>
+            <p>
+                <mat-form-field style="width:40%">
+                    <input type="text" matInput placeholder="Product Owner" formControlName="productOwner" [matAutocomplete]="auto">
+                </mat-form-field>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let user of users | async" [value]="user">
+                        {{ user.name }}
+                    </mat-option>
+                </mat-autocomplete>
+
+                <mat-form-field style="width:20%">
+                    <input type="number" matInput placeholder="priority" formControlName="priority">
+                </mat-form-field>
+                <mat-form-field style="width:20%">
+                    <input type="number" matInput placeholder="estimate" formControlName="estimate">
+                </mat-form-field>
+            </p>
+
+            <mat-form-field class="input-full-width">
+                <textarea matInput placeholder="Description" rows="6" formControlName="description"></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="input-full-width">
+                <textarea matInput placeholder="Acceptance Criterias" rows="6" formControlName="criterias"></textarea>
+            </mat-form-field>
+
+        </mat-dialog-content>
+    </div>
+
+
+    <div class="dialog-action">
+        <mat-dialog-actions align="end">
+            <button mat-button color="secondary" mat-dialog-close>CANCEL</button>
+            <button mat-button color="primary" (click)="apply()" [disabled]="!storyForm.valid">APPLY</button>
+        </mat-dialog-actions>
+    </div>
+</form>

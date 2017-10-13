@@ -1,0 +1,27 @@
+@import '../../../ya-theme';
+
+
+.dialog-header{
+    background-color:  $blue-light;
+    height: 65px;
+    padding: 20px;  
+  }
+  
+  .dialog-content{
+    padding: 20px;
+  }
+  
+  .dialog-action{
+    padding: 20px;
+  }
+
+  .title{
+    color:  $blue-light-text;
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+
+  .sub-title{
+    color: $blue-light-light;
+    margin-top: 5px;      
+  }

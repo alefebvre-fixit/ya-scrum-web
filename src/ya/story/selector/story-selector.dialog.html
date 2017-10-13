@@ -1,0 +1,22 @@
+
+
+
+<div class="dialog-header">
+  <h2 class="title">Sprint {{sprint?.name}} Backlog</h2>
+  <h3 class="sub-title">{{selectedStory().length}} story selected</h3>
+  <!-- <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
+    flex>
+  </td-search-box> -->
+</div>
+
+<div class="dialog-content">
+  <mat-dialog-content>
+    <ya-story-selector-grid [sprint]="sprint" [stories]="filteredData"></ya-story-selector-grid>
+  </mat-dialog-content>
+</div>
+<div class="dialog-action">
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCEL</button>
+    <button mat-button (click)="select()" color="primary">APPLY</button>
+  </mat-dialog-actions>
+</div>

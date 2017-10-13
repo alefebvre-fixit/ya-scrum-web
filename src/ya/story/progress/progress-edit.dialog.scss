@@ -1,0 +1,51 @@
+@import '../../../ya-theme';
+
+.story-card{
+    margin: 16px;
+}
+
+.story-detail-container{
+  padding: 50px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.input-width {
+  width: 30%;
+}
+
+.select-input{
+    margin-top: 50px;
+}
+
+.dialog-header{
+  background-color: $blue-grey;
+  color: white;
+  height: 65px;
+  padding: 20px;  
+}
+
+.dialog-content{
+  padding: 20px;
+}
+
+.dialog-action{
+  padding: 20px;
+}
+
+.daily{
+  color:white !important;
+  background-color: $blue-grey !important;
+}
+
+.previous{
+  color:white !important;
+  background-color: $blue-grey-dark !important;
+}
+
+.remaining{
+  color:black !important;
+  background-color: $blue-grey-light !important;
+}

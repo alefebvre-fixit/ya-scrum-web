@@ -1,0 +1,57 @@
+<div class="dialog-header">
+    <h2 *ngIf="sprint.id">Update Sprint</h2>
+    <h2 *ngIf="!sprint.id">Create new Sprint</h2>
+</div>
+<form [formGroup]="sprintForm" *ngIf="sprintForm" autocomplete="off" novalidate>
+    <div class="dialog-content">
+        <mat-dialog-content>
+
+            <p>
+                <mat-form-field class="input-full-width">
+                    <input matInput placeholder="Title" formControlName="name">
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field style="width:200px">
+                    <input type="number" matInput placeholder="Team Velocity" formControlName="velocity">
+                </mat-form-field>
+
+                <mat-form-field style="width:200px">
+                    <input type="number" matInput placeholder="Duration" formControlName="duration">
+                </mat-form-field>
+            </p>
+            <p>
+
+                <mat-form-field style="width:200px">
+                    <input matInput [matDatepicker]="pickerStartDate" placeholder="Start Date" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerStartDate></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field style="width:200px">
+                    <input matInput [matDatepicker]="pickerEndDate" placeholder="End Date" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerEndDate></mat-datepicker>
+                </mat-form-field>
+
+            </p>
+            <p>
+                <mat-form-field style="width:200px">
+                    <input type="text" matInput placeholder="Scrum Master" formControlName="scrummaster" [matAutocomplete]="auto">
+                </mat-form-field>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let user of users | async" [value]="user">
+                        {{ user.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </p>
+        </mat-dialog-content>
+
+    </div>
+    <div class="dialog-action">
+        <mat-dialog-actions align="end">
+            <button mat-button color="secondary" mat-dialog-close>CANCEL</button>
+            <button mat-button color="primary" (click)="apply()" [disabled]="!sprintForm.valid">APPLY</button>
+        </mat-dialog-actions>
+    </div>
+</form>

@@ -1,0 +1,5 @@
+<div [ngSwitch]="trend">
+    <mat-icon class="trend-down" *ngSwitchCase="'down'">trending_down</mat-icon>
+    <mat-icon class="trend-up" *ngSwitchCase="'up'">trending_up</mat-icon>
+    <mat-icon class="trend-flat" *ngSwitchCase="'flat'">trending_flat</mat-icon>
+</div>

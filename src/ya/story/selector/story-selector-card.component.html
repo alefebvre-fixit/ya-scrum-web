@@ -1,0 +1,30 @@
+<mat-card>
+  <div class="card-header">
+    <div class="card-icon" [hidden]="!story?.sprintId">
+      <mat-icon>done</mat-icon>
+    </div>
+    <mat-card-title>{{story?.name}}</mat-card-title>
+    <mat-card-subtitle>
+        <a *ngIf="story?.sprintId" class="sprint-name">@{{sprint?.name}}</a>
+        <a *ngIf="!story?.sprintId" class="sprint-name">&nbsp;</a>
+      </mat-card-subtitle>
+    <span class="ya-properties">
+      <ya-highlight-tag [theme]="story.theme">#{{story?.type}}</ya-highlight-tag>
+      <ya-property-tag color="#ffffff">{{story?.priority}} priority</ya-property-tag>
+      <ya-property-tag color="#ffffff">{{story?.estimate}} points</ya-property-tag>
+    </span>
+  </div>
+  <div class="story-card-content">
+    <mat-card-content>
+      <p>
+        {{(story)?.description | truncate: 700}}}}
+      </p>
+    </mat-card-content>
+  </div>
+  <mat-card-content>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button color="default" (click)="select()" *ngIf="story?.sprintId">REMOVE</button>
+    <button mat-button color="primary" (click)="select()" *ngIf="!story?.sprintId">ADD</button>    
+  </mat-card-actions>
+</mat-card>

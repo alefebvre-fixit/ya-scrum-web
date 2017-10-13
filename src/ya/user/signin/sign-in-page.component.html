@@ -1,0 +1,48 @@
+<div class="positioner">
+    <form [formGroup]="signInForm" autocomplete="off" novalidate>
+        <mat-card>
+            
+            <mat-card-title layout="row" layout-align="start center">
+                <span class="mat-title ya-title">Ya-Scrum</span> <span class="mat-title ya-sub-title">Login</span>
+            </mat-card-title>
+            <mat-card-subtitle>Sign In with your credentials</mat-card-subtitle>
+
+            <mat-divider></mat-divider>
+            
+            <mat-progress-bar mode="indeterminate" *ngIf="isStandBy"></mat-progress-bar>
+            
+            <mat-card-content>
+                <p>
+                    <mat-form-field class="input-full-width">
+                        <input matInput type="email" placeholder="Email" formControlName="email">
+                        <mat-hint align="start">
+                            <span [hidden]="!signInForm.controls.email.errors?.required || signInForm.controls.email.pristine" class="tc-red-600">Required</span>
+                        </mat-hint>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="input-full-width">
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-hint align="start">
+                            <span [hidden]="!signInForm.controls.password.errors?.required || signInForm.controls.password.pristine" class="tc-red-600">Required</span>
+                        </mat-hint>
+                    </mat-form-field>
+                </p>
+                <div id="invalid-auth-msg" *ngIf="invalidError" class="tc-red-600 text-center" flex>The email or password is incorrect. Please try again.</div>
+            </mat-card-content>
+
+            <mat-card-actions>
+                <div layout="row">
+                    <button flex mat-raised-button color="primary" [disabled]="!signInForm.valid || isStandBy" (click)="emailSignIn()" class="text-upper">Sign In</button>
+                </div>
+            </mat-card-actions>
+
+            <mat-divider></mat-divider>
+
+            <mat-card-actions>
+                <a mat-button color="primary" style="text-decoration: underline;" [disabled]="isStandBy" (click)="signUp()">Create new account</a>
+            </mat-card-actions>
+
+        </mat-card>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-header>
+    <mat-icon mat-card-avatar color="primary">today</mat-icon>
+    <mat-card-title>SPRINT PROGRESS</mat-card-title>
+    <mat-card-subtitle>Day x</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <td-data-table #dataTable [data]="progressHistory" [columns]="columns">
+
+      <ng-template tdDataTableTemplate="day" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          #{{value}}
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="trend" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          <ya-trend [amount]="row['daily']"></ya-trend>
+        </div>
+      </ng-template>
+
+    </td-data-table>
+    <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+      <h3>Story not started yet</h3>
+    </div>
+  </mat-card-content>
+</mat-card>

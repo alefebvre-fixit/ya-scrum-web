@@ -1,0 +1,15 @@
+@import '../../../ya-theme';
+
+
+.card-header{
+    background-color: $blue-grey;
+}
+
+mat-card-title{
+    color: $blue-grey-text;
+    padding-bottom: 16px;
+}
+
+mat-icon{
+    color: $blue-grey-light;
+}

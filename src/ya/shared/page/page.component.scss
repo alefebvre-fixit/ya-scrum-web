@@ -1,0 +1,11 @@
+@import '../../../ya-theme';
+
+.global-container{
+    background-color: $background-grey;
+    padding-top: 20px;    
+}
+
+.positioner{
+    max-width: 1240px;
+    margin: 0 auto;
+}

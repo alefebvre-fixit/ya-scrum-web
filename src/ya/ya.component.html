@@ -1,0 +1,145 @@
+<td-layout>
+  <td-navigation-drawer flex sidenavTitle="Ya-Scrum" [name]="account?.group?.name" [email]="(user | async)?.displayName">
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/sprints']">
+        <mat-icon>update</mat-icon>Sprints
+      </a>
+      <a mat-list-item [routerLink]="['/stories']">
+        <mat-icon>web</mat-icon>Stories</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="['/users']">
+        <mat-icon>contacts</mat-icon>Users</a>
+    </mat-nav-list>
+    <div td-navigation-drawer-menu>
+      <mat-nav-list>
+        
+        <a mat-list-item [routerLink]="['/account']">
+          <mat-icon>settings</mat-icon>Settings</a>
+        <a mat-list-item (click)="signOut()">
+          <mat-icon>exit_to_app</mat-icon>Sign Out</a>
+
+      </mat-nav-list>
+    </div>
+  </td-navigation-drawer>
+  <td-layout-nav navigationRoute="/">
+    
+  <div td-toolbar-content layout="row" layout-align="start center" flex>
+    <button mat-icon-button td-menu-button tdLayoutToggle>
+      <mat-icon>menu</mat-icon>
+    </button> 
+    <span flex>Ya-Scrum</span>
+
+    
+    
+    
+    <span flex>
+      
+      <button mat-button [routerLink]="['/home']">
+        {{this.account?.group?.name }}
+      </button>  
+      <button mat-button [routerLink]="['/sprints']">
+        Sprints
+      </button>  
+      <button mat-button [routerLink]="['/stories']">
+        Stories
+      </button>  
+
+
+    </span>
+
+
+    <span class="user-name">{{ (user | async)?.displayName }}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/account']">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="signOut()">
+        <mat-icon>exit_to_app</mat-icon>       
+        <span>Sign Out</span>
+        </button>
+    </mat-menu>
+
+
+  </div>
+
+
+
+
+
+    <router-outlet></router-outlet>
+
+    </td-layout-nav>
+</td-layout>
+
+
+
+<!-- <td-layout-nav>
+  <div td-toolbar-content layout="row" layout-align="start center" flex>
+    <button mat-icon-button class="td-menu-button" (click)="sidenav.toggle()" mdTooltip="Main menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span flex>Ya-Scrum</span>
+
+    
+    
+    
+    <span flex>
+      
+      <button mat-button [routerLink]="['/home']">
+        {{this.account?.group?.name }}
+      </button>  
+      <button mat-button [routerLink]="['/sprints']">
+        Sprints
+      </button>  
+      <button mat-button [routerLink]="['/stories']">
+        Stories
+      </button>  
+
+
+    </span>
+
+
+    <span class="user-name">{{ (user | async)?.displayName }}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/account']">
+          <mat-icon>settings</mat-icon>
+          <span>Account Settings</span>
+        </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="signOut()">
+          <mat-icon></mat-icon>          
+        <span>Sign Out</span>
+        </button>
+    </mat-menu>
+
+
+  </div>
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="side" opened="false" style="width:257px;border-right:1px solid #ccc">
+      <div flex class="mat-content bgc-grey-50">
+        <mat-nav-list>
+          <a mat-list-item [routerLink]="['/sprints']">
+            <mat-icon>update</mat-icon>Sprints</a>
+          <a mat-list-item [routerLink]="['/stories']">
+            <mat-icon>web</mat-icon>Stories</a>
+          <mat-divider></mat-divider>
+          <a mat-list-item [routerLink]="['/users']">
+            <mat-icon>contacts</mat-icon>Users</a>
+        </mat-nav-list>
+      </div>
+    </mat-sidenav>
+    <div layout layout-fill class="bgc-white">
+      <span flex>
+         <router-outlet></router-outlet>
+       </span>
+    </div>
+  </mat-sidenav-container>
+</td-layout-nav> -->

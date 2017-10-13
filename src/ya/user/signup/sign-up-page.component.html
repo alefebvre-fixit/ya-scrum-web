@@ -1,0 +1,60 @@
+<div class="positioner">
+
+    <form [formGroup]="signUpForm" autocomplete="off" novalidate>
+
+        <mat-card>
+            <mat-card-title layout="row" layout-align="start center">
+                <span class="mat-title ya-title">Ya-Scrum</span> <span class="mat-title ya-sub-title">Sign-Up</span>
+            </mat-card-title>
+            <mat-card-subtitle>Create a new Account</mat-card-subtitle>
+            <mat-progress-bar mode="indeterminate" *ngIf="isStandBy"></mat-progress-bar>
+
+            <mat-divider></mat-divider>
+
+            <mat-card-content class="push-bottom-none">
+
+                <p>
+                    <mat-form-field class="input-full-width">
+                        <input matInput type="text" placeholder="Name" formControlName="name">
+                        <mat-hint align="start">
+                            <span [hidden]="!signUpForm.controls.name.errors?.required || signUpForm.controls.name.pristine" class="tc-red-600">Required</span>
+                        </mat-hint>
+                        <mat-hint align="end">{{signUpForm.controls.name.value.length}} / 30</mat-hint>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="input-full-width">
+                        <input matInput type="email" placeholder="Email" formControlName="email">
+                        <mat-hint align="start">
+                            <span [hidden]="!signUpForm.controls.email.errors?.required || signUpForm.controls.email.pristine" class="tc-red-600">Required</span>
+                        </mat-hint>
+                        <mat-hint align="end">{{signUpForm.controls.email.value.length}} / 30</mat-hint>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="input-full-width">
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-hint align="start">
+                            <span [hidden]="!signUpForm.controls.password.errors?.required || signUpForm.controls.password.pristine" class="tc-red-600">Required</span>
+                        </mat-hint>
+                        <mat-hint align="end">Something hard to guess</mat-hint>
+                    </mat-form-field>
+                </p>
+
+                <div id="invalid-auth-msg" *ngIf="invalidError" class="tc-red-600 text-center" flex>The username or password is incorrect. Please try again.</div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div layout="row">
+                    <button flex mat-raised-button color="primary" [disabled]="!signUpForm.valid || isStandBy" (click)="signUp()" class="text-upper">Sign Up</button>
+                </div>
+            </mat-card-actions>
+            <mat-divider></mat-divider>
+            <mat-card-actions>
+                Already an account? <a mat-button color="primary" style="text-decoration: underline;" (click)="signIn()">Sign In</a>
+            </mat-card-actions>
+
+        </mat-card>
+    </form>
+
+
+</div>

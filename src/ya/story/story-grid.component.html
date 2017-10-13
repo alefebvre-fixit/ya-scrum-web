@@ -1,0 +1,6 @@
+<div class="positioner">
+    <ng-content select="ya-story-grid-title"></ng-content>
+    <div class="cards">
+        <ya-story-card [story]="story" *ngFor="let story of stories;" class="card"></ya-story-card>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<ya-page>
+  <div fxLayout fxLayoutWrap="wrap" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start">
+    <div fxFlex="100%">
+      <mat-card>
+
+        <div class="story-menu">
+          <button mat-icon-button (click)="editStory(story)"><mat-icon>edit</mat-icon></button>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editStory(story)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+            <button mat-menu-item [disabled]="!story?.id && story?.status==='new'" (click)="deleteStory(story)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            <button mat-menu-item [disabled]="!story" (click)="unassignStory(story)">
+                <mat-icon>close</mat-icon>
+                <span>Unassign</span>
+              </button>
+          </mat-menu>
+        </div>
+        <div class="card-header">
+          <mat-card-title>{{story?.name}}</mat-card-title>
+          <mat-card-subtitle><a *ngIf="sprint" [routerLink]="['/sprints', sprint.id]" class="sprint-name">@{{sprint?.name}}</a></mat-card-subtitle>
+          <span class="ya-properties">
+              <ya-highlight-tag [theme]="story?.theme">#{{(story)?.type}}</ya-highlight-tag>
+              <ya-property-tag color="#ffffff">{{(story)?.priority}} priority</ya-property-tag>
+              <ya-property-tag color="#ffffff">{{(story)?.estimate}} points</ya-property-tag>
+            </span>
+        </div>
+        <mat-card-content>
+          <h3 mat-subheader>Description</h3>
+          <p>
+            {{(story)?.description}}
+          </p>
+          <h3 mat-subheader>Acceptance Criterias</h3>
+          <p>
+            {{(story)?.acceptanceCriterias}}
+          </p>
+        </mat-card-content>
+        <mat-list>
+          <mat-list-item *ngIf="productOwner !== undefined">
+            <ngu-letter-avatar mat-list-avatar avatar-data='{{productOwner?.name}}' avatar-shape='round' avatarborder='true' avatar-height="40"
+              avatar-width="40" avatar-font-size="20">
+            </ngu-letter-avatar>
+            <h3 mat-line> {{productOwner?.name}} </h3>
+            <p mat-line>
+              <span> {{productOwner?.role}} </span>
+              <span> - {{productOwner?.team}} </span>
+            </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+    <div class="flex-item" fxFlex="50%">
+      <ya-story-progress-view [story]="story"></ya-story-progress-view>
+    </div>
+    <div class="flex-item" fxFlex="50%">
+      <ya-story-progress-schedule [story]="story"></ya-story-progress-schedule>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+</ya-page>

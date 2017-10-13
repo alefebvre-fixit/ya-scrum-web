@@ -1,0 +1,17 @@
+.positioner{
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card{
+    min-width: 350px;
+    max-width: 400px;
+    flex-basis: 350px;
+    flex-grow: 1;
+}
+

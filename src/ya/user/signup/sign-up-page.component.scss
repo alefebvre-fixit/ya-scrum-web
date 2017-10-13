@@ -1,0 +1,23 @@
+@import '../../../ya-theme';
+
+.positioner{
+    padding-top: 60px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ya-title{
+    color: $blue-light;
+}
+
+.ya-sub-title{
+    color: $title-grey;
+}
+
+mat-card{
+    padding:60px;
+}
+
+.input-full-width{
+    width: 100%;
+}

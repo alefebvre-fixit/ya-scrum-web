@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-content>
+    <mat-chip-list>
+      <table class="key-value-table">
+        <tbody>
+          <tr>
+            <td>Status</td>
+            <td>
+              <mat-chip color="accent" selected="true">{{story?.status}}</mat-chip>
+            </td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>
+              {{story?.type}}
+            </td>
+          </tr>
+          <tr>
+            <td>Priority</td>
+            <td>
+              {{story?.priority}}
+            </td>
+          </tr>
+          <tr>
+            <td>Estimate</td>
+            <td>
+              {{story?.estimate}}
+            </td>
+          </tr>
+          <tr>
+            <td>Progress</td>
+            <td>
+              {{progressAsPercentage()/100| percent:'1.0-0'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-chip-list>
+  </mat-card-content>
+</mat-card>

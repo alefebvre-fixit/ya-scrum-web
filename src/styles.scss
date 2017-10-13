@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import './ya-theme';
+
+
+.key-value-table {
+  border-collapse: collapse;
+}
+
+.key-value-table tr {
+  padding: 10px 15px;
+  text-align: left;
+  line-height: 28px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.key-value-table tr td:first-child{
+  text-align: left;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 12px;
+  width: 6%;
+}
+
+.key-value-table tr td:nth-child(2){
+  text-align: right;
+}
+
+.key-value-table td {
+  padding: 10px 28px 10px 28px
+}
+
+.value-chip{
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.page-container{
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+  background-color: $background-grey;
+}
+
+.app-full-bleed-dialog .mat-dialog-container {
+  padding: 0;
+  overflow: visible;  
+  width: 900px;
+}
+
+
+.sprint-background-dialog .mat-dialog-container {
+  padding: 0;
+  overflow: visible;  
+  width: 1100px;
+}
+
+.story-selector-dialog .mat-dialog-container {
+  padding: 0;
+  overflow: visible;  
+  width: 1100px;
+}
+
+.medium-dialog .mat-dialog-container {
+  padding: 0;
+  overflow: visible;  
+  width: 600px;
+}

@@ -1,0 +1,36 @@
+<mat-card>
+    <div class="card-header">
+        <mat-card-title>Progress - Day {{progress?.day}}</mat-card-title>
+    </div>
+    <mat-card-content>
+        <div class="story-card-content">
+            <div class="chart-container">
+                <div id="chart"></div>
+            </div>
+        </div>
+        <mat-chip-list>
+            <table class="key-value-table">
+                <tbody>
+                    <tr>
+                        <td>Previous</td>
+                        <td>
+                            <mat-chip class="value-chip previous">{{progress?.previous || "-"}}</mat-chip>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Daily</td>
+                        <td>
+                            <mat-chip class="value-chip daily">{{progress?.daily || "-"}}</mat-chip>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Remaining</td>
+                        <td>
+                            <mat-chip class="value-chip remaining">{{progress?.remaining || "-"}}</mat-chip>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-chip-list>
+    </mat-card-content>
+</mat-card>

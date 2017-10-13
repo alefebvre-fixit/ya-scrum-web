@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" class="section-nav-bar">
+  <span>Sprint</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-button (click)="addSprint()">ADD</button>
+</mat-toolbar>
+
+<div class="page-container">
+
+  <ya-sprint-grid [sprints]="sprintsProgress">
+    <ya-sprint-grid-title>
+      <ya-section-title>
+        <ya-section-title-highlight>{{ sprintsProgress?.length }}</ya-section-title-highlight> sprints in progress</ya-section-title>
+    </ya-sprint-grid-title>
+  </ya-sprint-grid>
+
+  <ya-sprint-grid [sprints]="sprintsPending">
+    <ya-sprint-grid-title>
+      <ya-section-title>
+        <ya-section-title-highlight>{{ sprintsPending?.length }}</ya-section-title-highlight> upcoming sprints</ya-section-title>
+    </ya-sprint-grid-title>
+  </ya-sprint-grid>
+
+  <ya-sprint-grid [sprints]="sprintsClosed">
+    <ya-sprint-grid-title>
+      <ya-section-title>
+        <ya-section-title-highlight>{{ sprintsPending?.length }}</ya-section-title-highlight> sprints completed</ya-section-title>
+    </ya-sprint-grid-title>
+  </ya-sprint-grid>
+
+
+</div>

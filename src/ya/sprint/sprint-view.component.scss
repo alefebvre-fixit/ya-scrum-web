@@ -1,0 +1,81 @@
+@import '../../ya-theme';
+
+.burndown-container{
+    display: flex;
+    justify-content: center;
+}
+
+.sprint-card{
+    border-top-style: solid;
+    border-top-width: 5px;
+    border-top-color: $blue-light;
+}
+
+.sprint-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: left;
+    color: $blue-light; 
+    z-index: 11;
+  }
+
+.image-overlay {
+    position: absolute;
+    bottom: 2px;
+    right: 0px;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    //background:  rgba(21, 101, 192, 0.1);    
+    background: linear-gradient( rgba(0,0,0,0), rgba(0,0,0,0.3));
+    //background: linear-gradient( rgba(0,0,0,0), rgba(21, 101, 192, 0.4));
+}
+
+.image-container{
+    position: relative;
+}
+
+.sprint-title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: left;
+    color: $blue-light-text; 
+    background: $blue-light;
+    z-index: 10;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 200%;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
+    
+}
+
+.sprint-date{
+    position: absolute;
+    top: 85px;
+    left: 20px;
+    text-align: left;
+    color: $blue-light-light; 
+    background: $blue-light;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 140%;
+    font-style: italic;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
+    z-index: 10;
+}
+
+.metrics{
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    font-size: 130%;
+    
+}

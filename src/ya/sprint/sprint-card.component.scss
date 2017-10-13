@@ -1,0 +1,27 @@
+@import '../../ya-theme';
+
+
+mat-card-header {
+  background-color: $blue-light;
+  cursor:pointer;
+}
+
+img{
+  cursor:pointer;  
+}
+
+mat-card-title {
+  color: $blue-light-text !important;
+  margin-bottom: 10px;
+  font-size: 130% !important;
+}
+
+mat-card-subtitle {
+  color: $blue-light-light !important;
+  font-size: 100% !important;
+}
+
+.card-header{
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
+}
+

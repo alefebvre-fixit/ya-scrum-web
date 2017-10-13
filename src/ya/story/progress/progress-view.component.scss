@@ -1,0 +1,54 @@
+@import '../../../ya-theme';
+
+@import '../../../ya-theme';
+
+
+.card-header{
+    background-color: $blue-grey;
+}
+
+mat-card-title{
+    color: $blue-grey-text;
+    padding-bottom: 16px;
+}
+
+
+.daily{
+    color:white !important;
+    background-color: $blue-grey !important;
+}
+
+.previous{
+    color:white !important;
+    background-color: $blue-grey-dark !important;
+}
+
+.remaining{
+    color:black !important;
+    background-color: $blue-grey-light !important;
+}
+
+.value-cell{
+    text-align: right;
+}
+
+.story-card-content{
+    height:350px;
+}
+
+.chart-container{
+    display: flex;
+    justify-content: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.icon-card{
+    color: $icon-grey  
+}
+
+/deep/ .c3-chart-arcs-title{
+    font-size: 250%;
+    fill: $blue-grey;
+}

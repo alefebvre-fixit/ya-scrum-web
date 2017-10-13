@@ -1,0 +1,49 @@
+<div class="dialog-header" *ngIf="!isEdit()">
+    <h2 class="dialog-title">Invite new User</h2>
+    <h2 class="dialog-subtitle"></h2>
+</div>
+<div class="dialog-header" *ngIf="isEdit()">
+    <h2 class="dialog-title">Pending Invite</h2>
+    <h2 class="dialog-subtitle">{{invite.date | moment}}</h2>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+
+<form [formGroup]="inviteForm" *ngIf="inviteForm" autocomplete="off" novalidate>
+    <div class="dialog-content">
+        <mat-card-content class="push-bottom-none">
+            <p>
+                <mat-form-field class="input-full-width">
+                    <input matInput type="text" placeholder="Name" formControlName="name">
+                    <mat-hint align="start">
+                        <span [hidden]="!inviteForm.controls.name.errors?.required || inviteForm.controls.name.pristine" class="tc-red-600">Required</span>
+                    </mat-hint>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field class="input-full-width">
+                    <input matInput type="email" placeholder="Email" formControlName="email">
+                    <mat-hint align="start">
+                        <span [hidden]="!inviteForm.controls.email.errors?.required || inviteForm.controls.email.pristine" class="tc-red-600">Required</span>
+                    </mat-hint>
+                </mat-form-field>
+            </p>
+            <div id="invalid-auth-msg" *ngIf="invalidError" class="tc-red-600 text-center" flex>Something Wrong Happened</div>
+            <p>
+                <td-message label="Error!" [sublabel]="errors" color="warn" icon="error" *ngIf="errors"></td-message>
+                <td-message label="Invite Link:" [sublabel]="getUrl()" color="primary" icon="info" *ngIf="isEdit()"></td-message>
+            </p>
+        </mat-card-content>
+    </div>
+    <div class="dialog-action">
+        <mat-dialog-actions align="end" *ngIf="!isEdit()">
+            <button mat-button color="secondary" mat-dialog-close>CANCEL</button>
+            <button mat-button color="primary" (click)="apply()" [disabled]="!inviteForm.valid && !loading">CREATE</button>
+        </mat-dialog-actions>
+
+        <mat-dialog-actions align="end" *ngIf="isEdit()">
+            <button mat-button color="secondary" mat-dialog-close>CLOSE</button>
+            <button mat-button color="secondary" (click)="cancelInvite()" [disabled]="loading">CANCEL INVITE</button>
+        </mat-dialog-actions>
+    </div>
+</form>

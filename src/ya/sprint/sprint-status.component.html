@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-content>
+    <mat-chip-list>
+      <table class="key-value-table">
+        <tbody>
+          <tr>
+            <td>Status</td>
+            <td>
+              <mat-chip color="accent" selected="true">{{sprint?.status}}</mat-chip>
+            </td>
+          </tr>
+          <tr>
+            <td>Total Estimate</td>
+            <td>
+              {{sprint?.estimate}}
+            </td>
+          </tr>
+          <tr>
+            <td>Team Velocity</td>
+            <td>
+              {{sprint?.velocity}}
+            </td>
+          </tr>
+          <tr>
+            <td>Duration</td>
+            <td>
+              {{sprint?.duration}}
+            </td>
+          </tr>
+          <tr>
+            <td>Story Progress</td>
+            <td>
+              {{progressAsPercentage()/100| percent:'1.0-0'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-chip-list>
+  </mat-card-content>
+</mat-card>

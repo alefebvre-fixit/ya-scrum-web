@@ -1,0 +1,23 @@
+<mat-card>
+    <div class="menu">
+        <button mat-icon-button (click)="addInvite()"><mat-icon>add</mat-icon></button>
+    </div>
+    <mat-card-title>
+        Pending Invites
+    </mat-card-title>
+    <mat-card-subtitle>{{(invites | async)?.length}} pending invites</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item *ngFor="let invite of invites | async">
+                <ngu-letter-avatar mat-list-avatar avatar-data='{{invite.name}}' avatar-shape='round' avatarborder='true' *ngIf="invite"></ngu-letter-avatar>
+                <h3 mat-line class="cursor-pointer" (click)='editInvite(invite)'> {{invite.email}}</h3>
+                <p mat-line class="cursor-pointer" (click)='editInvite(invite)'>
+                    <span class="text-wrap">
+                    {{ invite.date | moment}}
+                    </span>
+                </p>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

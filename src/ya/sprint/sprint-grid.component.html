@@ -1,0 +1,6 @@
+<div class="positioner">
+    <ng-content select="ya-sprint-grid-title"></ng-content>
+    <div class="cards">
+        <ya-sprint-card [sprint]="sprint" *ngFor="let sprint of sprints;" class="card"></ya-sprint-card>
+    </div>
+</div>

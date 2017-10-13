@@ -1,0 +1,30 @@
+<div class="positioner">
+    <form [formGroup]="groupForm" autocomplete="off" novalidate>
+        <mat-card>
+            <mat-card-title layout="row" layout-align="start center">
+                <span class="mat-title ya-title">Ya-Scrum</span> <span class="mat-title ya-sub-title">Sign-Up</span>
+            </mat-card-title>
+            <mat-card-subtitle>Create a new Group</mat-card-subtitle>
+            <mat-progress-bar mode="indeterminate" *ngIf="isStandBy"></mat-progress-bar>
+            <mat-divider></mat-divider>
+            <mat-card-content class="push-bottom-none">
+                <p>
+                    <mat-form-field class="input-full-width">
+                        <input matInput type="text" placeholder="Group Name" formControlName="name">
+                        <mat-hint align="start">
+                            <span [hidden]="!groupForm.controls.name.errors?.required || groupForm.controls.name.pristine" class="tc-red-600">Required</span>
+                        </mat-hint>
+                        <mat-hint align="end">{{groupForm.controls.name.value.length}} / 30</mat-hint>
+                    </mat-form-field>
+                </p>
+                <div id="invalid-auth-msg" *ngIf="invalidError" class="tc-red-600 text-center" flex>The username or password is incorrect. Please try again.</div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div layout="row">
+                    <button type="button" flex mat-raised-button color="primary" [disabled]="!groupForm.valid || isStandBy || user === undefined"
+                        (click)="onSubmit()" class="text-upper">Create</button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

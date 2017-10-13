@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="section-nav-bar">
+  <span>User Preferences</span>
+  <span class="toolbar-spacer"></span>
+  <mat-icon>verified_user</mat-icon>
+</mat-toolbar>
+
+<div class="positioner">
+  <mat-card *ngIf="account !== undefined">
+    <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" novalidate>
+      <mat-list>
+        <mat-list-item>
+          <ngu-letter-avatar mat-list-avatar avatar-data='{{account?.name}}' avatar-shape='round' avatarborder='true' avatar-height="40"
+            avatar-width="40" avatar-font-size="20">
+          </ngu-letter-avatar>
+          <h3 mat-line> {{account?.name}} </h3>
+          <p mat-line>
+            <span> {{account?.role}} </span>
+            <span> - {{account?.team}} </span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput placeholder="Role" type="text" maxlength="30" name="role" formControlName="role">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput placeholder="Team" type="text" maxlength="30" name="team" formControlName="team">
+        </mat-form-field>          
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button color="primary" type="submit" [disabled]="!accountForm.valid">SAVE</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

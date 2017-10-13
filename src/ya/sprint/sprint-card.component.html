@@ -1,0 +1,19 @@
+<mat-card class="sprint-card">
+  <div class="card-header">
+    <mat-card-header (click)="navigateToDetails(sprint?.id)">
+      <mat-card-title>{{sprint?.name}}</mat-card-title>
+      <mat-card-subtitle>{{sprint?.startDate | date}} - {{sprint?.endDate | date}}</mat-card-subtitle>
+    </mat-card-header>
+  </div>
+  <img *ngIf="sprint.thumbnail" mat-card-image [src]="sprint.thumbnail">
+  <img *ngIf="!sprint.thumbnail" mat-card-image src="assets/img/story-background.png">
+  <mat-card-content>
+    <mat-progress-bar [mode]="'determinate'" [value]="progressAsPercentage()"></mat-progress-bar>
+    <br> <b>{{sprint.storyNumber}}</b> stories
+    <br> <b>{{dayToGo()}}</b> days to go
+    <br> <b>{{progressAsPercentage()}}%</b> completed
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="navigateToDetails(sprint?.id)" color="primary">LEARN MORE</button>
+  </mat-card-actions>
+</mat-card>

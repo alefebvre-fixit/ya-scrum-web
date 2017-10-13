@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="section-nav-bar">
+  <span>Product Backlog</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-button (click)="addStory()">ADD</button>
+</mat-toolbar>
+
+<div class="page-container">
+
+  <ya-story-grid [stories]="storiesInProgress">
+    <ya-story-grid-title>
+      <ya-section-title>
+        <ya-section-title-highlight>{{ storiesInProgress?.length }}</ya-section-title-highlight> story in progress</ya-section-title>
+    </ya-story-grid-title>
+  </ya-story-grid>
+
+  <ya-story-grid [stories]="storiesPending">
+    <ya-story-grid-title>
+      <ya-section-title>
+        <ya-section-title-highlight>{{ storiesPending?.length }}</ya-section-title-highlight> new story</ya-section-title>
+    </ya-story-grid-title>
+  </ya-story-grid>
+
+  <ya-story-grid [stories]="storiesClosed">
+    <ya-story-grid-title>
+      <ya-section-title>
+        <ya-section-title-highlight>{{ storiesClosed?.length }}</ya-section-title-highlight> story closed</ya-section-title>
+    </ya-story-grid-title>
+  </ya-story-grid>
+
+  <br>
+  <br>
+  
+</div>

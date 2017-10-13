@@ -1,0 +1,33 @@
+<mat-card>
+  <div class="card-header">
+    <mat-card-title>Progress History</mat-card-title>
+  </div>
+  <mat-card-content>
+    <td-data-table #dataTable [data]="data" [columns]="columns" *ngIf="data && data.length > 0">
+
+      <ng-template tdDataTableTemplate="day" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          #{{value}}
+        </div>
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="trend" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          <ya-trend [amount]="row['daily']"></ya-trend>
+        </div>
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="edit" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          <button mat-icon-button (click)="edit(row)"><mat-icon>mode_edit</mat-icon></button>
+        </div>
+      </ng-template>
+
+    </td-data-table>
+
+    <div class="mat-padding"  *ngIf="!data || data.length <= 0" layout="row" layout-align="center center">
+      <h3>Story not started yet</h3>
+    </div>
+    
+  </mat-card-content>
+</mat-card>
