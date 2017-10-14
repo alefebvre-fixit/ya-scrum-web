@@ -152,20 +152,14 @@ export class StoryService {
   }
 
   private updateProgress(story: Story) {
-
     if (story.history && story.history.length > 0) {
-
       if ((story.history[0].remaining + story.history[0].total) != story.estimate) {
-        console.log('We need to rebench!!!!!')
         let previous: StoryProgress;
         for (const progress of story.history) {
           previous = this.calculateDailyProgress(story, progress, previous);
         }
-      } else {
-        console.log('No need to rebench')
       }
     }
-
   }
 
   public calculateDailyProgress(story: Story, progress: StoryProgress, previous: StoryProgress):  StoryProgress{
