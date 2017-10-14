@@ -58,23 +58,21 @@ export class ProgressViewComponent implements OnInit, OnChanges {
 
   private updateChart(progress: StoryProgress) {
 
-    if (progress === undefined) {
-      return;
-    }
-
     if (this.chart === undefined) {
-      return;
+      this.createChart(progress);
     }
 
-    this.chart.load({
-      columns: [
-        ['previous', progress.previous],
-        ['daily', progress.daily],
-        ['remaining', progress.remaining]]
-    });
-
-    d3.select('#chart text.c3-chart-arcs-title').node().innerHTML
-      = this.progressAsPercentage() + '%';
+    if (this.chart != undefined) {
+      this.chart.load({
+        columns: [
+          ['previous', progress.previous],
+          ['daily', progress.daily],
+          ['remaining', progress.remaining]]
+      });
+  
+      d3.select('#chart text.c3-chart-arcs-title').node().innerHTML
+        = this.progressAsPercentage() + '%';
+    }
 
   }
 

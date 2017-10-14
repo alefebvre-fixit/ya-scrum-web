@@ -38,7 +38,6 @@ export class StoryViewComponent implements OnInit {
       .map(params => params['id'])
       .subscribe((id) => {
         this.storyService.findOne(id).subscribe(story => {
-          console.log(story);
           this.story = story;
           
           if (story && story.sprintId) {
@@ -63,6 +62,10 @@ export class StoryViewComponent implements OnInit {
 
   editStory(story: Story) {
 
+    if (story === undefined){
+      return;
+    }
+
     const dialogRef = this.dialog.open(StoryEditDialogComponent, {
       panelClass: 'app-full-bleed-dialog',
       data: {
@@ -71,11 +74,14 @@ export class StoryViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('after close');
     });
   }
 
   deleteStory(story: Story) {
+
+    if (story === undefined){
+      return;
+    }
 
     if (story) {
       this._dialogService.openConfirm({
@@ -99,6 +105,9 @@ export class StoryViewComponent implements OnInit {
 
   removeStoryFromSprint(story: Story) {
 
+    if (story === undefined){
+      return;
+    }
 
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       width: '800',

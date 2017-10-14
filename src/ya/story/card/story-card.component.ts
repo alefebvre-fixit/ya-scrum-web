@@ -26,7 +26,6 @@ export class StoryCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.story.productOwnerId);
     if (this.story.productOwnerId) {
       this.userService.findOne(this.story.productOwnerId).subscribe(user => {
         if (user && user.name) {

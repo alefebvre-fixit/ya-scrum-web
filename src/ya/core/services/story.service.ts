@@ -46,11 +46,11 @@ export class StoryService {
   }
 
   private sprintCollection(): AngularFirestoreCollection<Sprint> {
-    return this.afs.collection(this.sprintsUrl());    
+    return this.afs.collection(this.sprintsUrl());
   }
 
   private storyCollection(): AngularFirestoreCollection<Story> {
-    return this.afs.collection(this.storiesUrl());    
+    return this.afs.collection(this.storiesUrl());
   }
 
   private baseUrl(ressource: string): string {
@@ -128,7 +128,6 @@ export class StoryService {
   }
 
   public findOne(id: string): Observable<Story> {
-    console.log(this.storiesUrl() + id)
     return this.afs.doc<Story>(this.storiesUrl() + id).valueChanges();
   }
 
@@ -148,8 +147,53 @@ export class StoryService {
 
   private update(story: Story): Observable<void> {
     story.filter_status = this.getFilterStatus(story.status);
+    this.updateProgress(story);
     return Observable.fromPromise(this.storyCollection().doc(story.id).update(story));
   }
+
+  private updateProgress(story: Story) {
+
+    if (story.history && story.history.length > 0) {
+
+      if ((story.history[0].remaining + story.history[0].total) != story.estimate) {
+        console.log('We need to rebench!!!!!')
+        let previous: StoryProgress;
+        for (const progress of story.history) {
+          previous = this.calculateDailyProgress(story, progress, previous);
+        }
+      } else {
+        console.log('No need to rebench')
+      }
+    }
+
+  }
+
+  public calculateDailyProgress(story: Story, progress: StoryProgress, previous: StoryProgress):  StoryProgress{
+
+    if (previous){
+      progress.previous = previous.total;
+    } else {
+      progress.previous = 0;
+    }
+
+    let actualDaily = progress.daily;
+    let daily = progress.daily;
+
+    progress.remaining = story.estimate - progress.previous;
+
+    if (daily > 0 && daily > progress.remaining) {
+      actualDaily = progress.remaining;
+    }
+
+    progress.daily = actualDaily;
+    progress.total = progress.previous + progress.daily;
+    progress.remaining = StoryService.filterPositive(story.estimate - progress.total);
+
+    return progress;
+  }
+
+
+
 
   public delete(id: string): Observable<void> {
     return Observable.fromPromise(this.afs.doc<Story>(this.storiesUrl() + id).delete());
@@ -170,25 +214,25 @@ export class StoryService {
       };
 
       const progress = this.getLatestProgress(story);
-      if (progress){
+      if (progress) {
         if (sprint.progress !== undefined && sprint.progress >= progress.total) {
           sprint.progress -= progress.total;
         } else {
           sprint.progress = 0;
         };
-  
+
         if (sprint.remaining !== undefined && sprint.remaining >= progress.remaining) {
           sprint.remaining -= progress.remaining;
         } else {
           sprint.remaining = 0;
         };
-  
+
         if (sprint.storyNumber !== undefined && sprint.storyNumber > 0) {
           sprint.storyNumber = --sprint.storyNumber;
         } else {
           sprint.storyNumber = 0;
         }
-      } 
+      }
 
       this.sprintCollection().doc(sprint.id).update({
         estimate: sprint.estimate,
@@ -246,18 +290,6 @@ export class StoryService {
 
     return story;
 
-  }
-
-  private toMap(history: StoryProgress[]): Map<number, StoryProgress> {
-    const result: Map<number, StoryProgress> = new Map<number, StoryProgress>();
-
-    if (history) {
-      for (const progress of history) {
-        result.set(progress.day, progress);
-      }
-    }
-
-    return result;
   }
 
   public getProgress(story: Story, day: number): StoryProgress {
