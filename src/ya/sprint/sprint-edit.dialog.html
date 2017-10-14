@@ -1,7 +1,8 @@
 <div class="dialog-header">
-    <h2 *ngIf="sprint.id">Update Sprint</h2>
-    <h2 *ngIf="!sprint.id">Create new Sprint</h2>
+    <h2 *ngIf="mode === 'update'">Update Sprint</h2>
+    <h2 *ngIf="mode === 'create'">Create new Sprint</h2>
 </div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <form [formGroup]="sprintForm" *ngIf="sprintForm" autocomplete="off" novalidate>
     <div class="dialog-content">
         <mat-dialog-content>
@@ -50,8 +51,8 @@
     </div>
     <div class="dialog-action">
         <mat-dialog-actions align="end">
-            <button mat-button color="secondary" mat-dialog-close>CANCEL</button>
-            <button mat-button color="primary" (click)="apply()" [disabled]="!sprintForm.valid">APPLY</button>
+            <button mat-button color="secondary" mat-dialog-close [disabled]="loading">CANCEL</button>
+            <button mat-button color="primary" (click)="apply()" [disabled]="!sprintForm.valid  || loading">APPLY</button>
         </mat-dialog-actions>
     </div>
 </form>

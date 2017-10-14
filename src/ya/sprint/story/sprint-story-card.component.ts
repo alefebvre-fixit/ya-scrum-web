@@ -56,18 +56,23 @@ export class SprintStoryCardComponent implements OnInit, OnChanges, AfterViewIni
   private updateChart(progress: StoryProgress) {
 
     if (this.chart === undefined) {
-      return;
+      this.createChart(progress);
+    }
+    if (this.chart != undefined) {
+      this.chart.load({
+        columns: [
+          ['previous', progress.previous],
+          ['daily', progress.daily],
+          ['remaining', progress.remaining]]
+      });
+
+      let node = d3.select('#' + this.story.id + ' text.c3-chart-arcs-title').node()
+      if (node) {
+        node.innerHTML = this.progressAsPercentage() + '%';
+      }
+
     }
 
-    this.chart.load({
-      columns: [
-        ['previous', progress.previous],
-        ['daily', progress.daily],
-        ['remaining', progress.remaining]]
-    });
-
-    d3.select('#' + this.story.id + ' text.c3-chart-arcs-title').node().innerHTML
-      = this.progressAsPercentage() + '%';
 
   }
 
@@ -80,6 +85,10 @@ export class SprintStoryCardComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   createChart(progress: StoryProgress) {
+
+    if (progress === undefined) {
+      return;
+    }
 
     this.chart = c3.generate({
       bindto: '#' + this.story.id,

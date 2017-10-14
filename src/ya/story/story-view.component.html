@@ -18,9 +18,9 @@
                 <mat-icon>delete</mat-icon>
                 <span>Delete</span>
               </button>
-            <button mat-menu-item [disabled]="!story" (click)="unassignStory(story)">
+            <button mat-menu-item [disabled]="!story || !sprint" (click)="removeStoryFromSprint(story)">
                 <mat-icon>close</mat-icon>
-                <span>Unassign</span>
+                <span>Remove from Sprint</span>
               </button>
           </mat-menu>
         </div>

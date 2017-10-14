@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { StoryService, SprintService, UserService } from '@ya-scrum/services';
 import { Story, StoryProgress, Sprint, SprintProgress, User } from '@ya-scrum/models';
+import { SimpleDialogComponent } from '@ya-scrum/shared';
 
 import { StoryEditDialogComponent } from './story-edit.dialog';
 
@@ -96,25 +97,45 @@ export class StoryViewComponent implements OnInit {
     }
   }
 
-  unassignStory(story: Story) {
+  removeStoryFromSprint(story: Story) {
 
-    if (this.sprint) {
-      this._dialogService.openConfirm({
 
-        message: 'This will un-assign current story from sprint ' + this.sprint.name + ' Do you confirm?',
-        viewContainerRef: this._viewContainerRef,
-        title: 'Confirm',
-        cancelButton: 'Cancel',
-        acceptButton: 'Unassign',
-      }).afterClosed().subscribe((accept: boolean) => {
-        if (accept) {
-          this.storyService.unassignStory(story);
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      width: '800',
+      data: {
+        title: 'Remove story from sprint ',
+        label: 'Warning!',
+        sublabel: 'Progress recorded for this story will be lost',
+        validateButton: 'REMOVE',
+        cancelButton: 'CANCEL',
+        
+      }
+    });
 
-        } else {
-          // DO SOMETHING ELSE
-        }
-      });
-    }
+    dialogRef.afterClosed().subscribe((accept: boolean) => {
+      if (accept) {
+        this.storyService.removeStoryFromSprint(story);
+      }
+    });
+
+
+    // if (this.sprint) {
+    //   this._dialogService.openConfirm({
+
+    //     message: 'This will un-assign current story from sprint ' + this.sprint.name + ' Do you confirm?',
+    //     viewContainerRef: this._viewContainerRef,
+    //     title: 'Confirm',
+    //     cancelButton: 'Cancel',
+    //     acceptButton: 'Unassign',
+    //   }).afterClosed().subscribe((accept: boolean) => {
+    //     if (accept) {
+    //       this.storyService.unassignStory(story);
+
+    //     } else {
+    //       // DO SOMETHING ELSE
+    //     }
+    //   });
+    // }
 
   }
 

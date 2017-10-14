@@ -14,6 +14,9 @@ import { Story, StoryProgress, Sprint, SprintProgress, User } from '@ya-scrum/mo
 })
 export class SprintEditDialogComponent implements OnInit {
 
+  loading = false;
+  mode = 'create';
+
   sprint: Sprint;
   users: Observable<User[]>;
   scrummaster: User;
@@ -26,8 +29,15 @@ export class SprintEditDialogComponent implements OnInit {
     public userService: UserService,
     private _fb: FormBuilder
   ) {
-    console.log(data)
+    
     this.sprint = data.sprint;
+
+    if (this.sprint && this.sprint.id) {
+      this.mode = 'update'
+    } else {
+      this.mode = 'create'
+    }
+
   }
 
   ngOnInit() {
@@ -67,10 +77,14 @@ export class SprintEditDialogComponent implements OnInit {
       this.sprint.scrumMasterId = this.sprintForm.value.scrummaster.id;
     }
 
+    this.loading = true;
     this.sprintService.save(this.sprint).subscribe(
-      () => this.dialogRef.close(this.sprint)
+      () => {
+        this.loading = false;
+        this.dialogRef.close(this.sprint);
+      }
     );
-    
+
 
   }
 

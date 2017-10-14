@@ -5,7 +5,11 @@ export class SprintFactory {
 
 
     public static create(): Sprint {
-        return Object.assign({}, new SprintImpl())
+
+        const result = Object.assign({}, new SprintImpl());
+        result.meeting = Object.assign({}, new MeetingStatusImpl())
+        
+        return result;
     }
 
     public static createProgress(): SprintProgress {
@@ -36,7 +40,7 @@ class SprintImpl implements Sprint {
     startDate: string;
     endDate: string;
     duration = 15;
-    meeting = new MeetingStatusImpl();
+    meeting;
 
     estimate = 0;
     progress = 0;

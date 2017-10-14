@@ -4,6 +4,7 @@ import { TrendModule } from './trend';
 import { PropertyTagModule } from './property-tag';
 import { SectionTitleModule } from './section-title';
 import { PageModule } from './page';
+import { DialogModule } from './dialog';
 
 @NgModule({
   imports: [
@@ -12,16 +13,19 @@ import { PageModule } from './page';
     PropertyTagModule,
     SectionTitleModule,
     PageModule,
+    DialogModule,
   ],
   declarations: [],
   exports: [
     TrendModule,
     PropertyTagModule,
     SectionTitleModule,
-    PageModule
+    PageModule,
+    DialogModule
   ],
   entryComponents: [],
   providers: []
 })
 
 export class SharedModule { }
+export { SimpleDialogComponent } from './dialog';

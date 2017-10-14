@@ -1,6 +1,7 @@
 <mat-card>
   <div class="card-header">
     <mat-card-title>{{story?.name}}</mat-card-title>
+    
     <mat-card-subtitle>
       <a *ngIf="sprint" [routerLink]="['/sprints', sprint.id]" class="sprint-name">@{{(sprint)?.name}}</a>
       <a *ngIf="!sprint" class="sprint-name">&nbsp;</a>
@@ -11,6 +12,7 @@
       <ya-property-tag color="#ffffff">{{story?.priority}} priority</ya-property-tag>
       <ya-property-tag color="#ffffff">{{story?.estimate}} points</ya-property-tag>
     </span>
+
   </div>
   <div class="story-card-content">
     <mat-card-content>

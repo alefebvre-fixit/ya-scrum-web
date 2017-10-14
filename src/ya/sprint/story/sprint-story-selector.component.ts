@@ -47,13 +47,6 @@ export class SprintStorySelectorComponent implements OnInit {
     });
   }
 
-  selectStories(): void {
-
-  }
-
-
-
-
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;

@@ -8,7 +8,7 @@
     flex>
   </td-search-box> -->
 </div>
-
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <div class="dialog-content">
   <mat-dialog-content>
     <ya-story-selector-grid [sprint]="sprint" [stories]="filteredData"></ya-story-selector-grid>

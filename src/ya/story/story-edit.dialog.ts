@@ -15,6 +15,9 @@ import { Story, StoryProgress, Sprint, SprintProgress, User } from '@ya-scrum/mo
 })
 export class StoryEditDialogComponent implements OnInit {
 
+  loading = false;
+  mode = 'create';
+
   story: Story;
   storyForm: FormGroup;
   typeList: any;
@@ -32,6 +35,13 @@ export class StoryEditDialogComponent implements OnInit {
     private _fb: FormBuilder
   ) {
     this.story = data.story;
+
+    if (this.story && this.story.id) {
+      this.mode = 'update'
+    } else {
+      this.mode = 'create'
+    }
+
   }
 
   ngOnInit() {
@@ -62,12 +72,12 @@ export class StoryEditDialogComponent implements OnInit {
 
   }
 
-    selectedValue: string;
+  selectedValue: string;
 
   foods = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' }
   ];
 
 
@@ -85,7 +95,13 @@ export class StoryEditDialogComponent implements OnInit {
       this.story.productOwnerId = this.storyForm.value.productOwner.id;
     }
 
-    this.storyService.save(this.story).subscribe( () => this.dialogRef.close(this.story));
+    this.loading = true;
+    this.storyService.save(this.story).subscribe(
+      () => {
+        this.loading = false;
+        this.dialogRef.close(this.story);
+      }
+    );
 
   }
 

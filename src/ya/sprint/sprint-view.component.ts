@@ -7,6 +7,7 @@ import { Story, StoryProgress, Sprint, SprintProgress, User, Upload } from '@ya-
 import { SprintEditDialogComponent } from './sprint-edit.dialog';
 import { SprintStorySelectorComponent } from './story/sprint-story-selector.component';
 import { StorySelectorDialogComponent } from '../story';
+import { MatSnackBar } from '@angular/material';
 
 
 
@@ -30,7 +31,8 @@ export class SprintViewComponent implements OnInit {
     private sprintService: SprintService,
     private storyService: StoryService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -61,14 +63,25 @@ export class SprintViewComponent implements OnInit {
 
   public startNewDailyMeeting() {
     this.sprintService.startNewDailyMeeting(this.sprint, this.stories);
+    let snackBarRef = this.snackBar.open('Daily Meeting Open', 'OK', {
+      duration: 3000
+    });
   }
 
   public closeDailyMeeting() {
     this.sprintService.closedDailyMeeting(this.sprint, this.stories);
+    let snackBarRef = this.snackBar.open('Daily Meeting Closed', 'OK', {
+      duration: 3000
+    });
+    
   }
 
   public cancelLastDailyMeeting() {
     this.sprintService.cancelLastDailyMeeting(this.sprint, this.stories);
+    let snackBarRef = this.snackBar.open('Daily Meeting Canceled', 'OK', {
+      duration: 3000
+    });
+    
   }
 
   editSprint(sprint: Sprint) {

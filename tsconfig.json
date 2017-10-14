@@ -8,7 +8,8 @@
       "@ya-scrum/services": ["ya/core/services"],
       "@ya-scrum/pipes": ["ya/core/pipes"],
       "@ya-scrum/croppie": ["ya/shared/croppie"],
-      "@ya-scrum/material": ["ya/shared/material"]
+      "@ya-scrum/material": ["ya/shared/material"],
+      "@ya-scrum/shared": ["ya/shared"]
     },
     "sourceMap": true,
     "declaration": false,

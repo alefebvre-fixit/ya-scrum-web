@@ -7,8 +7,6 @@
     <h2 class="dialog-subtitle">{{invite.date | moment}}</h2>
 </div>
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-
-
 <form [formGroup]="inviteForm" *ngIf="inviteForm" autocomplete="off" novalidate>
     <div class="dialog-content">
         <mat-card-content class="push-bottom-none">

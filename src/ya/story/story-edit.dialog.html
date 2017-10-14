@@ -1,8 +1,8 @@
 <div class="dialog-header">
-    <h2 *ngIf="story.id">Update Story</h2>
-    <h2 *ngIf="!story.id">Create new Story</h2>
+    <h2 *ngIf="mode === 'update'">Update Story</h2>
+    <h2 *ngIf="mode === 'create'">Create new Story</h2>
 </div>
-
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <form [formGroup]="storyForm" *ngIf="storyForm" autocomplete="off" novalidate>
     <div class="dialog-content">
         <mat-dialog-content>
@@ -57,8 +57,8 @@
 
     <div class="dialog-action">
         <mat-dialog-actions align="end">
-            <button mat-button color="secondary" mat-dialog-close>CANCEL</button>
-            <button mat-button color="primary" (click)="apply()" [disabled]="!storyForm.valid">APPLY</button>
+            <button mat-button color="secondary" mat-dialog-close [disabled]="loading">CANCEL</button>
+            <button mat-button color="primary" (click)="apply()" [disabled]="!storyForm.valid || loading">APPLY</button>
         </mat-dialog-actions>
     </div>
 </form>

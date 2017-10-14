@@ -15,6 +15,7 @@ import { StoryService, SprintService, UserService } from '@ya-scrum/services';
 })
 export class StorySelectorDialogComponent implements OnInit {
 
+  loading = false;
   stories: Story[];
   sprint: Sprint;
 
@@ -33,9 +34,11 @@ export class StorySelectorDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.storyService.findNewStories().subscribe(stories => {
       this.stories = stories;
       this.filter();
+      this.loading = false;
     });
   }
 

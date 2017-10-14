@@ -155,7 +155,7 @@ export class StoryService {
     return Observable.fromPromise(this.afs.doc<Story>(this.storiesUrl() + id).delete());
   }
 
-  public unassignStory(story: Story) {
+  public removeStoryFromSprint(story: Story) {
 
     const sprintId = story.sprintId;
     //Make it one transaction
@@ -170,24 +170,25 @@ export class StoryService {
       };
 
       const progress = this.getLatestProgress(story);
-
-      if (sprint.progress !== undefined && sprint.progress >= progress.total) {
-        sprint.progress -= progress.total;
-      } else {
-        sprint.progress = 0;
-      };
-
-      if (sprint.remaining !== undefined && sprint.remaining >= progress.remaining) {
-        sprint.remaining -= progress.remaining;
-      } else {
-        sprint.remaining = 0;
-      };
-
-      if (sprint.storyNumber !== undefined && sprint.storyNumber > 0) {
-        sprint.storyNumber = --sprint.storyNumber;
-      } else {
-        sprint.storyNumber = 0;
-      }
+      if (progress){
+        if (sprint.progress !== undefined && sprint.progress >= progress.total) {
+          sprint.progress -= progress.total;
+        } else {
+          sprint.progress = 0;
+        };
+  
+        if (sprint.remaining !== undefined && sprint.remaining >= progress.remaining) {
+          sprint.remaining -= progress.remaining;
+        } else {
+          sprint.remaining = 0;
+        };
+  
+        if (sprint.storyNumber !== undefined && sprint.storyNumber > 0) {
+          sprint.storyNumber = --sprint.storyNumber;
+        } else {
+          sprint.storyNumber = 0;
+        }
+      } 
 
       this.sprintCollection().doc(sprint.id).update({
         estimate: sprint.estimate,
@@ -272,7 +273,7 @@ export class StoryService {
 
   public getLatestProgress(story: Story): StoryProgress {
 
-    let result = StoryFactory.createProgress();
+    let result: StoryProgress;
 
     if (story && story.history) {
       result = this.getProgress(story, story.history.length);
