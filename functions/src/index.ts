@@ -32,10 +32,10 @@ export let generateThumbnail = functions.storage.object().onChange(event => {
     const tempLocalThumbFile = path.join(os.tmpdir(), thumbFilePath);
     const sprintId = fileDir.split('/').pop();
 
-    console.log('filePath=' + filePath);    
-    console.log('fileDir=' + fileDir);    
+    console.log('filePath=' + filePath);
+    console.log('fileDir=' + fileDir);
     console.log('sprintId=' + sprintId);
-    
+
 
     // Exit if this is triggered on a file that is not an image.
     if (!event.data.contentType.startsWith('image/')) {
@@ -56,7 +56,7 @@ export let generateThumbnail = functions.storage.object().onChange(event => {
     }
 
     // Cloud Storage files.
-    const bucket = storage({keyFilename: 'ya-scrum-firebase-adminsdk-ng7wn-afa9e95c09.json'}).bucket(event.data.bucket);
+    const bucket = storage({ keyFilename: 'ya-scrum-firebase-adminsdk-ng7wn-b368482812.json' }).bucket(event.data.bucket);
     const file = bucket.file(filePath);
     const thumbFile = bucket.file(thumbFilePath);
 
@@ -80,12 +80,12 @@ export let generateThumbnail = functions.storage.object().onChange(event => {
         fs.unlinkSync(tempLocalThumbFile);
         //Get the Signed URLs for the thumbnail and original image.
         const config = {
-          action: 'read',
-          expires: '03-01-2500'
+            action: 'read',
+            expires: '03-01-2500'
         };
         return Promise.all([
-          thumbFile.getSignedUrl(config),
-          file.getSignedUrl(config)
+            thumbFile.getSignedUrl(config),
+            file.getSignedUrl(config)
         ]);
     }).then(results => {
 
@@ -96,7 +96,7 @@ export let generateThumbnail = functions.storage.object().onChange(event => {
         const fileUrl = originalResult[0];
         // Add the URLs to the Database
         //return admin.database().ref('images').push({background: fileUrl, thumbnail: thumbFileUrl});
-        return admin.database().ref(fileDir).update({background: fileUrl, thumbnail: thumbFileUrl});
+        return admin.database().ref(fileDir).update({ background: fileUrl, thumbnail: thumbFileUrl });
 
     }).then(() => console.log('Thumbnail URLs saved to database.'));
 });
