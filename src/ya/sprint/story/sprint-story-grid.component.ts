@@ -9,6 +9,7 @@ import { Story, Sprint, SprintStatus } from '@ya-scrum/models';
 })
 export class SprintStoryGridComponent {
 
+  @Input() sprint: Sprint;
   @Input() stories: Story[];
   @Input() status: string = SprintStatus.CLOSED;
 

@@ -1,5 +1,6 @@
 import { Sprint, SprintProgress, SprintFilter, SprintStatus, MeetingStatus } from '../sprint';
 import { Story } from '../story';
+import { Impediment, Meeting } from '../impediment';
 
 export class SprintFactory {
 
@@ -7,20 +8,24 @@ export class SprintFactory {
     public static create(): Sprint {
 
         const result = Object.assign({}, new SprintImpl());
-        result.meeting = Object.assign({}, new MeetingStatusImpl())
-        
+        result.meeting = Object.assign({}, new MeetingStatusImpl());
+        //result.impediment = Object.assign({}, new ImpedimentImpl());
+
         return result;
     }
 
     public static createProgress(): SprintProgress {
-        return Object.assign({}, new SprintProgressImpl())
+        return Object.assign({}, new SprintProgressImpl());
     }
 
+    public static createImpediment(): Impediment {
+        return Object.assign({}, new ImpedimentImpl());
+    }
 
 }
 
 export class MeetingStatusImpl implements MeetingStatus {
-    
+
     day = 0;
     status = SprintStatus.CLOSED;
 
@@ -55,7 +60,7 @@ class SprintImpl implements Sprint {
     thumbnail: string;
     storyNumber = 0;
 
-    impediment: Story;
+    impediment: Impediment;
 }
 
 
@@ -70,5 +75,23 @@ class SprintProgressImpl implements SprintProgress {
     remaining = 0;
 
     sprintId: string;
+
+}
+
+
+class ImpedimentImpl implements Impediment {
+
+    id: string;
+    name: string;
+
+    description: string;
+    comment: string;
+
+    estimate: number;
+
+    sprintId: string;
+
+    meetings: Meeting[];
+
 
 }

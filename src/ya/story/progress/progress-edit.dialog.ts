@@ -37,10 +37,14 @@ export class ProgressEditDialogComponent implements OnInit {
   }
 
   apply() {
+
+    const cloned = Object.assign({}, this.story);
+
     this.progress = this.storyService.setDailyProgress(this.story, this.progress, this.storyForm.value.daily);
-    this.storyService.assignDailyProgress(this.story, this.progress);
-    this.storyService.save(this.story);
+    this.storyService.assignDailyProgress(cloned, this.progress);
+    this.storyService.save(this.story, cloned);
     this.dialogRef.close(true);
+
   }
 
   cancel() {

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-
-import { StoryService } from '@ya-scrum/services';
 import { Story } from '@ya-scrum/models';
+import { StoryService } from '@ya-scrum/services';
+
 import { StoryEditDialogComponent } from './story-edit.dialog';
 
 @Component({

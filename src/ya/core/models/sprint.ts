@@ -1,9 +1,10 @@
 import { Story } from './story';
+import { Impediment } from './impediment';
 
 export interface MeetingStatus {
 
     day: number;
-    status:SprintStatus;
+    status: SprintStatus;
 
 }
 
@@ -51,7 +52,7 @@ export interface Sprint {
     thumbnail: string;
     storyNumber: number;
 
-    impediment: Story;
+    impediment: Impediment;
 
 
 }

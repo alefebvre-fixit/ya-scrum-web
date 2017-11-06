@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Rx';
-import { Story, StoryFactory, StoryStatus, StoryFilter, StoryProgress, Sprint } from '../models';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { UserService } from './user.service';
+import { Sprint, Story, StoryFactory, StoryFilter, StoryProgress, StoryStatus } from '../models';
 import { AuthenticationService } from './authentication.service';
-
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { DocumentReference } from 'firebase/firestore';
-
+import { UserService } from './user.service';
+import { YaService } from './ya.service';
 
 
 @Injectable()
-export class StoryService {
+export class StoryService extends YaService {
 
   private storyTypes = [
     { key: 'feature', value: 'Feature' },
@@ -29,40 +26,12 @@ export class StoryService {
     { key: 'closed', value: 'Closed' },
   ];
 
-
-  public static filterPositive(value: number): number {
-    if (value > 0) {
-      return value;
-    } else {
-      return 0;
-    }
-  }
-
   constructor(
     private afs: AngularFirestore,
     private authentication: AuthenticationService,
     private userService: UserService,
   ) {
-  }
-
-  private sprintCollection(): AngularFirestoreCollection<Sprint> {
-    return this.afs.collection(this.sprintsUrl());
-  }
-
-  private storyCollection(): AngularFirestoreCollection<Story> {
-    return this.afs.collection(this.storiesUrl());
-  }
-
-  private baseUrl(ressource: string): string {
-    return this.authentication.baseUrl(ressource);
-  }
-
-  private sprintsUrl() {
-    return this.authentication.baseUrl('sprints/');
-  }
-
-  private storiesUrl() {
-    return this.authentication.baseUrl('stories/');
+    super(afs, authentication);
   }
 
   public getStoryTypes(): any {
@@ -80,21 +49,6 @@ export class StoryService {
 
     return result;
   }
-
-  public index() {
-    this.findAll().take(1).subscribe((stories: Story[]) => {
-      for (const story of stories) {
-
-        if (story.status === undefined) {
-          story.status = StoryStatus.NEW;
-        }
-
-        story.filter_status = this.getFilterStatus(story.status);
-        this.save(story);
-      }
-    });
-  }
-
 
   public findAll(): Observable<Story[]> {
     return this.afs.collection<Story>(this.storiesUrl(), ref => ref.orderBy('priority')).valueChanges();
@@ -131,11 +85,11 @@ export class StoryService {
     return this.afs.doc<Story>(this.storiesUrl() + id).valueChanges();
   }
 
-  public save(story: Story): Observable<void> {
-    if (story.id) {
-      return this.update(story);
+  public save(oldStory: Story, newStory: Story): Observable<void> {
+    if (newStory.id) {
+      return this.update(oldStory, newStory);
     } else {
-      return this.create(story);
+      return this.create(newStory);
     }
   }
 
@@ -145,33 +99,43 @@ export class StoryService {
     return Observable.fromPromise(this.storyCollection().doc(story.id).set(story));
   }
 
-  private update(story: Story): Observable<void> {
-    story.filter_status = this.getFilterStatus(story.status);
-    this.updateProgress(story);
-    return Observable.fromPromise(this.storyCollection().doc(story.id).update(story));
+  private update(oldStory: Story, newStory: Story): Observable<void> {
+    newStory.filter_status = this.getFilterStatus(newStory.status);
+    this.updateProgress(oldStory, newStory);
+    return Observable.fromPromise(this.storyCollection().doc(newStory.id).update(newStory));
   }
 
-  private updateProgress(story: Story) {
-    if (story.history && story.history.length > 0) {
-      if ((story.history[0].remaining + story.history[0].total) != story.estimate) {
+  private updateProgress(oldStory: Story, newStory: Story) {
+
+    const diff = newStory.estimate - oldStory.estimate;
+    if (diff !== 0) {
+      if (newStory.history && newStory.history.length > 0) {
         let previous: StoryProgress;
-        for (const progress of story.history) {
-          previous = this.calculateDailyProgress(story, progress, previous);
+        for (const progress of newStory.history) {
+          previous = this.calculateDailyProgress(newStory, progress, previous);
         }
+      }
+      if (newStory.sprintId !== undefined) {
+        this.afs.doc<Sprint>(this.sprintsUrl() + newStory.sprintId).valueChanges().subscribe(sprint => {
+          if (sprint) {
+            this.sprintCollection().doc(sprint.id).update({ estimate: sprint.estimate + diff, remaining: sprint.remaining - diff });
+          }
+        });
+
       }
     }
   }
 
-  public calculateDailyProgress(story: Story, progress: StoryProgress, previous: StoryProgress):  StoryProgress{
+  public calculateDailyProgress(story: Story, progress: StoryProgress, previous: StoryProgress): StoryProgress {
 
-    if (previous){
+    if (previous) {
       progress.previous = previous.total;
     } else {
       progress.previous = 0;
     }
 
     let actualDaily = progress.daily;
-    let daily = progress.daily;
+    const daily = progress.daily;
 
     progress.remaining = story.estimate - progress.previous;
 
@@ -181,7 +145,7 @@ export class StoryService {
 
     progress.daily = actualDaily;
     progress.total = progress.previous + progress.daily;
-    progress.remaining = StoryService.filterPositive(story.estimate - progress.total);
+    progress.remaining = this.filterPositive(story.estimate - progress.total);
 
     return progress;
   }
@@ -256,7 +220,7 @@ export class StoryService {
 
     result.daily = value;
     result.total = result.previous + result.daily;
-    result.remaining = StoryService.filterPositive(story.estimate - result.total);
+    result.remaining = this.filterPositive(story.estimate - result.total);
     return result;
   }
 
@@ -391,6 +355,5 @@ export class StoryService {
 
     return Math.round((progress / total) * 100);
   }
-
 
 }

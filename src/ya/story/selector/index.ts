@@ -12,6 +12,7 @@ import { CovalentMessageModule } from '@covalent/core';
 import { StorySelectorGridComponent } from './story-selector-grid.component';
 import { StorySelectorDialogComponent } from './story-selector.dialog';
 import { StorySelectorCardComponent } from './story-selector-card.component';
+import { ImpedimentSelectorCardComponent } from './impediment-selector-card.component';
 
 import { MaterialModule } from '@ya-scrum/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -40,10 +41,12 @@ import { PipeModule } from '@ya-scrum/pipes';
     StorySelectorGridComponent,
     StorySelectorDialogComponent,
     StorySelectorCardComponent,
+    ImpedimentSelectorCardComponent
   ],
   exports: [
     StorySelectorGridComponent,
     StorySelectorDialogComponent,
+    ImpedimentSelectorCardComponent
   ],
   providers: [
   ],

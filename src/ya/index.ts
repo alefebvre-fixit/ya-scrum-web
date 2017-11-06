@@ -28,7 +28,7 @@ import { SprintModule } from './sprint';
 import { AuthGuard } from './auth.service';
 
 import { StoryService, SprintService, ThemeService, DateService } from '@ya-scrum/services';
-import { UserService, GroupService, AuthenticationService, InviteService } from '@ya-scrum/services';
+import { UserService, GroupService, AuthenticationService, InviteService, ImpedimentService } from '@ya-scrum/services';
 
 import { environment } from '../environments/environment';
 
@@ -60,6 +60,7 @@ import { environment } from '../environments/environment';
   providers: [
     UserService,
     StoryService,
+    ImpedimentService,
     SprintService,
     AuthGuard,
     ThemeService,

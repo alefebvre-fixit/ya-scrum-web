@@ -37,9 +37,9 @@ export class StoryEditDialogComponent implements OnInit {
     this.story = data.story;
 
     if (this.story && this.story.id) {
-      this.mode = 'update'
+      this.mode = 'update';
     } else {
-      this.mode = 'create'
+      this.mode = 'create';
     }
 
   }
@@ -72,34 +72,28 @@ export class StoryEditDialogComponent implements OnInit {
 
   }
 
-  selectedValue: string;
-
-  foods = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' }
-  ];
-
-
   apply() {
 
-    this.story.name = this.storyForm.value.name;
-    this.story.description = this.storyForm.value.description;
-    this.story.acceptanceCriterias = this.storyForm.value.criterias;
-    this.story.priority = this.storyForm.value.priority;
-    this.story.estimate = this.storyForm.value.estimate;
-    this.story.type = this.storyForm.value.type;
-    this.story.theme = this.storyForm.value.theme;
+    const cloned = Object.assign({}, this.story);
+
+
+    cloned.name = this.storyForm.value.name;
+    cloned.description = this.storyForm.value.description;
+    cloned.acceptanceCriterias = this.storyForm.value.criterias;
+    cloned.priority = this.storyForm.value.priority;
+    cloned.estimate = this.storyForm.value.estimate;
+    cloned.type = this.storyForm.value.type;
+    cloned.theme = this.storyForm.value.theme;
 
     if (this.storyForm.value.productOwner) {
-      this.story.productOwnerId = this.storyForm.value.productOwner.id;
+      cloned.productOwnerId = this.storyForm.value.productOwner.id;
     }
 
     this.loading = true;
-    this.storyService.save(this.story).subscribe(
+    this.storyService.save(this.story, cloned).subscribe(
       () => {
         this.loading = false;
-        this.dialogRef.close(this.story);
+        this.dialogRef.close(cloned);
       }
     );
 

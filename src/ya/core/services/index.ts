@@ -1,4 +1,5 @@
 export { StoryService } from './story.service';
+export { ImpedimentService } from './impediment.service';
 export { SprintService } from './sprint.service';
 export { UserService } from './user.service';
 export { ThemeService } from './theme.service';

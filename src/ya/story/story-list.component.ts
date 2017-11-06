@@ -1,8 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    ITdDataTableColumn,
+    ITdDataTableSortChangeEvent,
+    TdDataTableService,
+    TdDataTableSortingOrder,
+} from '@covalent/core';
 import { Story } from '@ya-scrum/models';
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
-import { IPageChangeEvent } from '@covalent/core';
 
 @Component({
   selector: 'ya-story-list',

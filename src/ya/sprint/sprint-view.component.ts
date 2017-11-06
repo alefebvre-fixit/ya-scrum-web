@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { Sprint, SprintFactory, SprintProgress, Story, User } from '@ya-scrum/models';
+import { SprintService, StoryService, UserService } from '@ya-scrum/services';
 
-import { StoryService, SprintService, UserService } from '@ya-scrum/services';
-import { Story, StoryProgress, Sprint, SprintProgress, User, Upload } from '@ya-scrum/models';
+import { StorySelectorDialogComponent } from '../story';
+import { SprintBackgroundDialogComponent } from './sprint-background.dialog';
 import { SprintEditDialogComponent } from './sprint-edit.dialog';
 import { SprintStorySelectorComponent } from './story/sprint-story-selector.component';
-import { StorySelectorDialogComponent } from '../story';
-import { MatSnackBar } from '@angular/material';
-
-
-
-import { SprintBackgroundDialogComponent } from './sprint-background.dialog';
 
 @Component({
   templateUrl: './sprint-view.component.html',
@@ -22,6 +19,7 @@ export class SprintViewComponent implements OnInit {
 
   public sprint: Sprint;
   public stories: Story[];
+
   public scrummaster: User;
   public progress: SprintProgress;
   public progressHistory: SprintProgress[];
@@ -63,25 +61,25 @@ export class SprintViewComponent implements OnInit {
 
   public startNewDailyMeeting() {
     this.sprintService.startNewDailyMeeting(this.sprint, this.stories);
-    let snackBarRef = this.snackBar.open('Daily Meeting Open', 'OK', {
+    const snackBarRef = this.snackBar.open('Daily Meeting Open', 'OK', {
       duration: 3000
     });
   }
 
   public closeDailyMeeting() {
     this.sprintService.closedDailyMeeting(this.sprint, this.stories);
-    let snackBarRef = this.snackBar.open('Daily Meeting Closed', 'OK', {
+    const snackBarRef = this.snackBar.open('Daily Meeting Closed', 'OK', {
       duration: 3000
     });
-    
+
   }
 
   public cancelLastDailyMeeting() {
     this.sprintService.cancelLastDailyMeeting(this.sprint, this.stories);
-    let snackBarRef = this.snackBar.open('Daily Meeting Canceled', 'OK', {
+    const snackBarRef = this.snackBar.open('Daily Meeting Canceled', 'OK', {
       duration: 3000
     });
-    
+
   }
 
   editSprint(sprint: Sprint) {
@@ -135,6 +133,12 @@ export class SprintViewComponent implements OnInit {
           sprint: this.sprint,
         }
       });
+    }
+  }
+
+  addImpediment() {
+    if (!this.sprint.impediment) {
+      this.sprint.impediment = SprintFactory.createImpediment();
     }
   }
 

@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { User } from '@ya-scrum/models';
 import { UserService } from '@ya-scrum/services';
 import { Observable } from 'rxjs/Observable';

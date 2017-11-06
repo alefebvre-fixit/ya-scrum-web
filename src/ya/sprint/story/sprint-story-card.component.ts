@@ -48,9 +48,12 @@ export class SprintStoryCardComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   private updateProgress(increment: number) {
+
+    //const cloned = Object.assign({}, this.story);
+    
     this.progress = this.storyService.incrementDailyProgress(this.story, this.progress, increment);
     this.storyService.assignDailyProgress(this.story, this.progress);
-    this.storyService.save(this.story);
+    this.storyService.save(this.story, this.story);
   }
 
   private updateChart(progress: StoryProgress) {
@@ -58,7 +61,7 @@ export class SprintStoryCardComponent implements OnInit, OnChanges, AfterViewIni
     if (this.chart === undefined) {
       this.createChart(progress);
     }
-    if (this.chart != undefined) {
+    if (this.chart !== undefined) {
       this.chart.load({
         columns: [
           ['previous', progress.previous],
@@ -66,7 +69,7 @@ export class SprintStoryCardComponent implements OnInit, OnChanges, AfterViewIni
           ['remaining', progress.remaining]]
       });
 
-      let node = d3.select('#' + this.story.id + ' text.c3-chart-arcs-title').node()
+      const node = d3.select('#' + this.story.id + ' text.c3-chart-arcs-title').node()
       if (node) {
         node.innerHTML = this.progressAsPercentage() + '%';
       }
@@ -135,16 +138,10 @@ export class SprintStoryCardComponent implements OnInit, OnChanges, AfterViewIni
         duration: 200
       }
     });
-
   }
 
   public isOpen(): boolean {
     return SprintStatus.OPEN === this.status;
   }
 
-
-  // $blue-grey: #546e7a;
-  // $blue-grey-text: #FFFFFF;
-  // $blue-grey-light:  #CFD8DC;
-  // $blue-grey-dark: #455A64;
 }

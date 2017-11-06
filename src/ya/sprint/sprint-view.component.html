@@ -78,14 +78,14 @@
         color="primary"><mat-icon>today</mat-icon> CLOSE STAND-UP</button>
 
       <button mat-icon-button (click)="addStory()"><mat-icon>fullscreen</mat-icon></button>
-      <button mat-icon-button [matMenuTriggerFor]="menuStory">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-      <mat-menu #menuStory="matMenu">
+      <button mat-icon-button [matMenuTriggerFor]="menuBurndown">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menuBurndown="matMenu">
         <button mat-menu-item (click)="cancelLastDailyMeeting()">
-              <mat-icon>cancel</mat-icon>
-              <span>Cancel last meeting</span>
-            </button>
+          <mat-icon>cancel</mat-icon>
+          <span>Cancel last meeting</span>
+        </button>
       </mat-menu>
     </ya-section-button-bar>
   </ya-section-title>
@@ -104,27 +104,24 @@
   <ya-section-title>
     Sprint Backlog:
     <ya-section-title-highlight>{{ stories?.length }} stories</ya-section-title-highlight>
-    <ya-section-button-bar><button mat-icon-button (click)="addStory()"><mat-icon>add</mat-icon></button></ya-section-button-bar>
+    <ya-section-button-bar>
+      <button mat-icon-button (click)="addStory()"><mat-icon>add</mat-icon></button>
+
+      <button mat-icon-button [matMenuTriggerFor]="menuStory">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menuStory="matMenu">
+        <button mat-menu-item (click)="addImpediment()">
+            <mat-icon>help</mat-icon>
+            <span>Track Impediment</span>
+          </button>
+      </mat-menu>
+
+    </ya-section-button-bar>
   </ya-section-title>
 
-  <ya-sprint-story-grid [stories]="stories" [status]="sprint?.meeting?.status" (onAdd)="addStory()" *ngIf="stories && stories?.length > 0"></ya-sprint-story-grid>
-  <div fxLayout fxLayoutWrap="wrap" fxLayoutAlign="start start" *ngIf="!stories || stories?.length <= 0">
-    <div class="flex-item" fxFlex="5%">
-    </div>
-    <div class="flex-item" fxFlex="90%">
-      <ya-sprint-story-card-new (onAdd)="addStory()"></ya-sprint-story-card-new>
-    </div>
-    <div class="flex-item" fxFlex="5%">
-    </div>
-  </div>
+  <ya-sprint-story-grid [stories]="stories" [sprint]="sprint" [status]="sprint?.meeting?.status" (onAdd)="addStory()" *ngIf="stories && stories?.length > 0"></ya-sprint-story-grid>
+  <br>
+  <br>
 
-  <!-- <ya-section-title>
-      <ya-section-title-highlight>{{ progressHistory?.length }}</ya-section-title-highlight>
-      Days Schedule
-    </ya-section-title>
-
-    <ya-sprint-progress-schedule [progressHistory]="progressHistory"></ya-sprint-progress-schedule> -->
-    <br>
-    <br>
-  
 </ya-page>

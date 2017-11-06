@@ -1,0 +1,24 @@
+<mat-card class="story-card">
+  <div class="card-header">
+    <mat-card-title>Impediment</mat-card-title>
+    <span class="ya-properties">
+      <ya-highlight-tag theme="pink">#Impediment</ya-highlight-tag>
+    </span>
+  </div>
+  <div class="story-card-content">
+    <div class="chart-container">
+      <div id="impediment"></div>
+    </div>
+    <div class="points-container">
+        <span *ngIf="isOpen()"><span  class="point-value">{{ progress?.daily }} points</span><br><span class="point-label"> spent today</span></span>
+        <span *ngIf="!isOpen()"><span class="point-label"> Stand-Up meeting is not open yet</span></span>
+      </div>
+  </div>
+  <mat-card-actions>
+    <button mat-button (click)="navigateToDetails(story?.id)" class="detail-button">DETAILS</button>
+    <span *ngIf="isOpen()">
+    <button mat-mini-fab (click)="remove()" color="accent"><mat-icon>keyboard_arrow_down</mat-icon></button>
+    <button mat-mini-fab (click)="add()" color="primary"><mat-icon>keyboard_arrow_up</mat-icon></button>
+    </span>
+  </mat-card-actions>
+</mat-card>

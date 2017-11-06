@@ -1,3 +1,4 @@
 <div class="cards">
+    <ya-sprint-impediment-card [status]="status" [sprint]="sprint" class="card" *ngIf="sprint.impediment"></ya-sprint-impediment-card>
     <ya-sprint-story-card [status]="status" [story]="story" *ngFor="let story of stories;trackBy: trackStory" class="card"></ya-sprint-story-card>
 </div>

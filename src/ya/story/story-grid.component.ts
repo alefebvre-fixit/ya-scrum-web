@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Directive} from '@angular/core';
-
+import { Component, Directive, Input } from '@angular/core';
 import { Story } from '@ya-scrum/models';
 
 

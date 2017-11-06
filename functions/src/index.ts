@@ -96,7 +96,7 @@ export let generateThumbnail = functions.storage.object().onChange(event => {
         const fileUrl = originalResult[0];
         // Add the URLs to the Database
         //return admin.database().ref('images').push({background: fileUrl, thumbnail: thumbFileUrl});
-        return admin.database().ref(fileDir).update({ background: fileUrl, thumbnail: thumbFileUrl });
-
+        //return admin.database().ref(fileDir).update({ background: fileUrl, thumbnail: thumbFileUrl });
+        return admin.firestore().doc(fileDir).update({ background: fileUrl, thumbnail: thumbFileUrl });
     }).then(() => console.log('Thumbnail URLs saved to database.'));
 });

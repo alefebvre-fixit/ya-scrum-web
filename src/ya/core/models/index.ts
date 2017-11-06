@@ -1,5 +1,6 @@
 export { Sprint, SprintProgress, SprintStatus, SprintFilter } from './sprint';
 export { Story, StoryProgress, StoryStatus, StoryFilter } from './story';
+export { Impediment, Meeting } from './impediment';
 export { Upload } from './upload';
 export { Theme } from './theme';
 export { Group } from './group';

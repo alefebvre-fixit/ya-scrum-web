@@ -1,0 +1,28 @@
+<mat-card>
+  <div class="card-header">
+    <div class="card-icon" [hidden]="!story?.sprintId">
+      <mat-icon>done</mat-icon>
+    </div>
+    <mat-card-title>Impediment</mat-card-title>
+    <mat-card-subtitle>
+        <a *ngIf="selected()" class="sprint-name">@{{sprint?.name}}</a>
+        <a *ngIf="!selected()" class="sprint-name">&nbsp;</a>
+      </mat-card-subtitle>
+    <span class="ya-properties">
+        <ya-highlight-tag theme="pink">#Impediment</ya-highlight-tag>
+    </span>
+  </div>
+  <div class="story-card-content">
+    <mat-card-content>
+      <p>
+        Track your impediment here
+      </p>
+    </mat-card-content>
+  </div>
+  <mat-card-content>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button color="default" (click)="select()" *ngIf="selected()">REMOVE</button>
+    <button mat-button color="primary" (click)="select()" *ngIf="!selected()">ADD</button>    
+  </mat-card-actions>
+</mat-card>

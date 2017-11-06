@@ -29,11 +29,11 @@ export class SprintService {
   }
 
   private sprintCollection(): AngularFirestoreCollection<Sprint> {
-    return this.afs.collection(this.sprintsUrl());    
+    return this.afs.collection(this.sprintsUrl());
   }
 
   private storyCollection(): AngularFirestoreCollection<Story> {
-    return this.afs.collection(this.storiesUrl());    
+    return this.afs.collection(this.storiesUrl());
   }
 
   private baseUrl(ressource: string): string {
@@ -73,7 +73,9 @@ export class SprintService {
 
     stories.forEach(story => {
       const latest = this.storyService.getLatestProgress(story);
-      sprintProgress += latest.total;
+      if (latest){
+        sprintProgress += latest.total;
+      }
     });
 
     if (sprintProgress !== sprint.progress) {
@@ -197,7 +199,7 @@ export class SprintService {
     if (stories) {
       for (const story of stories) {
 
-        let progress = this.storyService.getProgress(story, sprint.meeting.day);
+        const progress = this.storyService.getProgress(story, sprint.meeting.day);
         if (!progress) {
           this.storyService.initDailyMeeting(story, sprint.meeting.day);
           this.storyCollection().doc(story.id).update({

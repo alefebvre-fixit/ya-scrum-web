@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Story, Sprint } from '@ya-scrum/models';
+import { SprintService } from '@ya-scrum/services';
 
 @Component({
   selector: 'ya-story-selector-grid',
@@ -13,6 +14,7 @@ export class StorySelectorGridComponent {
   @Input() sprint: Sprint[];
 
   constructor(
+    private sprintService: SprintService,
   ) {
   }
 

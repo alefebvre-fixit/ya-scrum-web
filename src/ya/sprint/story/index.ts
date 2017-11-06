@@ -9,6 +9,7 @@ import { CovalentPagingModule } from '@covalent/core';
 import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentMessageModule } from '@covalent/core';
 
+import { SprintImpedimentCardComponent } from './sprint-impediment-card.component';
 import { SprintStoryCardComponent } from './sprint-story-card.component';
 import { SprintStoryCardNewComponent } from './sprint-story-card-new.component';
 import { SprintStoryGridComponent } from './sprint-story-grid.component';
@@ -42,12 +43,14 @@ import { SharedModule } from '../../shared';
     SprintStoryGridComponent,
     SprintStorySelectorComponent,
     SprintStoryCardNewComponent,
+    SprintImpedimentCardComponent
   ],
   exports: [
     SprintStoryCardComponent,
     SprintStoryGridComponent,
     SprintStorySelectorComponent,
     SprintStoryCardNewComponent,
+    SprintImpedimentCardComponent
   ],
   providers: [
   ],

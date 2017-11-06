@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { ViewContainerRef } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService } from '@covalent/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-
-import { StoryService, SprintService, UserService } from '@ya-scrum/services';
-import { Story, StoryProgress, Sprint, SprintProgress, User } from '@ya-scrum/models';
+import { Sprint, Story, StoryProgress, User } from '@ya-scrum/models';
+import { SprintService, StoryService, UserService } from '@ya-scrum/services';
 import { SimpleDialogComponent } from '@ya-scrum/shared';
 
 import { StoryEditDialogComponent } from './story-edit.dialog';
@@ -39,7 +38,7 @@ export class StoryViewComponent implements OnInit {
       .subscribe((id) => {
         this.storyService.findOne(id).subscribe(story => {
           this.story = story;
-          
+
           if (story && story.sprintId) {
             this.sprintService.findOne(story.sprintId).subscribe(sprint => {
               this.sprint = sprint;
@@ -62,7 +61,7 @@ export class StoryViewComponent implements OnInit {
 
   editStory(story: Story) {
 
-    if (story === undefined){
+    if (story === undefined) {
       return;
     }
 
@@ -79,7 +78,7 @@ export class StoryViewComponent implements OnInit {
 
   deleteStory(story: Story) {
 
-    if (story === undefined){
+    if (story === undefined) {
       return;
     }
 
@@ -105,19 +104,19 @@ export class StoryViewComponent implements OnInit {
 
   removeStoryFromSprint(story: Story) {
 
-    if (story === undefined){
+    if (story === undefined) {
       return;
     }
 
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
-      width: '800',
+      width: '800px',
       data: {
         title: 'Remove story from sprint ',
         label: 'Warning!',
         sublabel: 'Progress recorded for this story will be lost',
         validateButton: 'REMOVE',
         cancelButton: 'CANCEL',
-        
+
       }
     });
 
@@ -126,26 +125,6 @@ export class StoryViewComponent implements OnInit {
         this.storyService.removeStoryFromSprint(story);
       }
     });
-
-
-    // if (this.sprint) {
-    //   this._dialogService.openConfirm({
-
-    //     message: 'This will un-assign current story from sprint ' + this.sprint.name + ' Do you confirm?',
-    //     viewContainerRef: this._viewContainerRef,
-    //     title: 'Confirm',
-    //     cancelButton: 'Cancel',
-    //     acceptButton: 'Unassign',
-    //   }).afterClosed().subscribe((accept: boolean) => {
-    //     if (accept) {
-    //       this.storyService.unassignStory(story);
-
-    //     } else {
-    //       // DO SOMETHING ELSE
-    //     }
-    //   });
-    // }
-
   }
 
 }

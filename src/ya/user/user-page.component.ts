@@ -1,7 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { User } from '@ya-scrum/models';
-import { UserService } from '@ya-scrum/services';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './user-page.component.html',

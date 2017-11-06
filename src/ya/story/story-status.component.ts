@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
 import { Story } from '@ya-scrum/models';
 import { StoryService } from '@ya-scrum/services';
 
@@ -13,7 +12,7 @@ export class StoryStatusComponent implements OnInit {
   @Input() story: Story;
 
   constructor(
-    private storyService: StoryService,    
+    private storyService: StoryService,
   ) {
   }
 
