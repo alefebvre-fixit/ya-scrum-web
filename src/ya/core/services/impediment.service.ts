@@ -1,8 +1,9 @@
+import { Impediment } from '../models/impediment';
 import { YaService } from './ya.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { Sprint, Impediment, Meeting } from '../models';
+import { Sprint, Impediment, Meeting, SprintFactory } from '../models';
 import { AuthenticationService } from './authentication.service';
 
 
@@ -69,6 +70,43 @@ export class ImpedimentService extends YaService {
   public incrementTimeSpent(sprint: Sprint, meeting: Meeting, increment: number): Meeting {
     return this.setTimeSpent(sprint, meeting, meeting.daily + increment);
   }
+
+
+  public createImpediment(sprint: Sprint) {
+
+    if (!sprint.impediment) {
+      this.sprintCollection().doc(sprint.id).update({
+        impediment: SprintFactory.createImpediment()
+      });
+    }
+
+  }
+
+
+  public initDailyMeeting(impediment: Impediment, day: number) {
+    
+        const result = SprintFactory.createProgress();
+    
+        result.storyId = story.id;
+        result.day = day;
+        result.date = new Date();
+    
+        const previous = this.getProgress(story, day - 1);
+        if (previous) {
+          result.previous = previous.previous + previous.daily;
+          result.total = previous.previous + previous.daily;
+          result.daily = 0;
+          result.remaining = story.estimate - (previous.previous + previous.daily);
+        } else {
+          result.previous = 0;
+          result.daily = 0;
+          result.total = 0;
+          result.remaining = story.estimate;
+        }
+    
+        this.setMeeting(story, result);
+    
+      }
 
 
 }

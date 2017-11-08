@@ -22,6 +22,10 @@ export class SprintFactory {
         return Object.assign({}, new ImpedimentImpl());
     }
 
+    public static createImpediment(): Impediment {
+        return Object.assign({}, new ImpedimentImpl());
+    }
+
 }
 
 export class MeetingStatusImpl implements MeetingStatus {

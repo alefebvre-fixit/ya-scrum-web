@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Sprint, SprintFactory, SprintProgress, Story, User } from '@ya-scrum/models';
-import { SprintService, StoryService, UserService } from '@ya-scrum/services';
+import { ImpedimentService, SprintService, StoryService, UserService } from '@ya-scrum/services';
 
 import { StorySelectorDialogComponent } from '../story';
 import { SprintBackgroundDialogComponent } from './sprint-background.dialog';
@@ -27,6 +27,7 @@ export class SprintViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sprintService: SprintService,
+    private impedimentService: ImpedimentService,
     private storyService: StoryService,
     private userService: UserService,
     private dialog: MatDialog,
@@ -138,7 +139,7 @@ export class SprintViewComponent implements OnInit {
 
   addImpediment() {
     if (!this.sprint.impediment) {
-      this.sprint.impediment = SprintFactory.createImpediment();
+      this.impedimentService.createImpediment(this.sprint);
     }
   }
 
