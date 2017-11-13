@@ -22,9 +22,10 @@ export class SprintFactory {
         return Object.assign({}, new ImpedimentImpl());
     }
 
-    public static createImpediment(): Impediment {
-        return Object.assign({}, new ImpedimentImpl());
+    public static createMeeting(): Meeting {
+        return Object.assign({}, new MeetingImpl());
     }
+
 
 }
 
@@ -97,5 +98,17 @@ class ImpedimentImpl implements Impediment {
 
     meetings: Meeting[];
 
+
+}
+
+
+
+class MeetingImpl implements Meeting {
+
+    date: Date;
+    day: number;
+    total: number;
+    previous: number;
+    daily: number;
 
 }
