@@ -13,7 +13,7 @@ import { SprintStatus } from 'ya/core/models/sprint';
   templateUrl: './sprint-impediment-card.component.html',
   styleUrls: ['./sprint-impediment-card.component.scss']
 })
-export class SprintImpedimentCardComponent implements OnInit, OnChanges, AfterViewInit {
+export class SprintImpedimentCardComponent implements OnInit, OnChanges {
 
   @Input() sprint: Sprint;
   @Input() status: string = SprintStatus.CLOSED;
@@ -31,27 +31,20 @@ export class SprintImpedimentCardComponent implements OnInit, OnChanges, AfterVi
     this.meeting = this.impedimentService.getLatestMeeting(this.sprint);
   }
 
-  ngAfterViewInit() {
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     this.meeting = this.impedimentService.getLatestMeeting(this.sprint);
   }
 
   public add() {
-    this.updateProgress(+1);
+    this.incrementTimeSpent(+1);
   }
 
   public remove() {
-    this.updateProgress(-1);
+    this.incrementTimeSpent(-1);
   }
 
-  private updateProgress(increment: number) {
+  private incrementTimeSpent(increment: number) {
     this.meeting = this.impedimentService.incrementTimeSpent(this.sprint, this.meeting, increment);
-  }
-
-  public navigateToDetails(id: string) {
-    this.router.navigate([`/stories/${id}`]);
   }
 
   public isOpen(): boolean {
