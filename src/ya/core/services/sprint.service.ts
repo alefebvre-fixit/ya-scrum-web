@@ -291,17 +291,6 @@ export class SprintService {
 
   }
 
-
-  public generateBurndowData(sprint: Sprint, stories: Story[]): any {
-    const result = { labels: [], datas: [] };
-
-    result.labels = this.generateLabels(sprint);
-    result.datas[0] = this.generateIdealCurve(sprint);
-    result.datas[1] = this.generateActualCurve(sprint, stories);
-
-    return result;
-  }
-
   public generateActualCurve(sprint: Sprint, stories: Story[]): Array<any> {
     const result = [];
 
@@ -332,18 +321,7 @@ export class SprintService {
       const remaining = sprint.estimate - ((sprint.estimate * day) / sprint.duration);
       result[day] = remaining;
     }
-
-    return result;
-  }
-
-  public generateLabels(sprint: Sprint): Array<string> {
-    const result: Array<string> = new Array<string>();
-    result.push('0');
-
-    for (let day = 1; day <= sprint.duration; day++) {
-      result.push(day.toString());
-    }
-
+    console.log(result)
     return result;
   }
 

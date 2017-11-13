@@ -61,7 +61,6 @@ export class StoryEditDialogComponent implements OnInit {
           criterias: [this.story.acceptanceCriterias, [<any>Validators.required]],
           type: [this.story.type, [<any>Validators.required]],
           priority: [this.story.priority, [<any>Validators.required]],
-          estimate: [this.story.estimate, [<any>Validators.required]],
           theme: [this.story.theme, [<any>Validators.required]],
           productOwner: [this.productOwner],
         });
@@ -81,7 +80,6 @@ export class StoryEditDialogComponent implements OnInit {
     cloned.description = this.storyForm.value.description;
     cloned.acceptanceCriterias = this.storyForm.value.criterias;
     cloned.priority = this.storyForm.value.priority;
-    cloned.estimate = this.storyForm.value.estimate;
     cloned.type = this.storyForm.value.type;
     cloned.theme = this.storyForm.value.theme;
 

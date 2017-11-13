@@ -18,6 +18,9 @@ import { StoryGridComponent, StoryGridTitleDirective} from './story-grid.compone
 import { StoryListComponent} from './story-list.component';
 import { StoryViewComponent} from './story-view.component';
 import { StoryEditDialogComponent} from './story-edit.dialog';
+import { StoryEstimateDialogComponent} from './story-estimate.dialog';
+
+
 import { StoryStatusComponent} from './story-status.component';
 import { ProductBacklogComponent} from './product-backlog.component';
 
@@ -53,6 +56,7 @@ import { StoryCardModule } from './card';
     ProductBacklogComponent,
     StoryViewComponent,
     StoryEditDialogComponent,
+    StoryEstimateDialogComponent,
     StoryStatusComponent,
     StoryListComponent,
   ],
@@ -66,6 +70,7 @@ import { StoryCardModule } from './card';
   ],
   entryComponents: [
     StoryEditDialogComponent,
+    StoryEstimateDialogComponent,
   ],
   providers: []
 })
