@@ -1,4 +1,3 @@
-import { Impediment } from '../models/impediment';
 import { YaService } from './ya.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -17,10 +16,10 @@ export class ImpedimentService extends YaService {
     super(afs, authentication);
   }
 
-  public getMeeting(sprint: Sprint, day: number): Meeting {
+  public getMeeting(impediment: Impediment, day: number): Meeting {
 
-    if (sprint.impediment && sprint.impediment.meetings) {
-      for (const meeting of sprint.impediment.meetings) {
+    if (impediment && impediment.meetings) {
+      for (const meeting of impediment.meetings) {
         if (meeting && meeting.day === day) {
           return meeting;
         }
@@ -30,12 +29,12 @@ export class ImpedimentService extends YaService {
     return undefined;
   }
 
-  public getLatestMeeting(sprint: Sprint): Meeting {
+  public getLatestMeeting(impediment: Impediment): Meeting {
 
     let result: Meeting;
 
-    if (sprint.impediment && sprint.impediment.meetings) {
-      result = this.getMeeting(sprint, sprint.impediment.meetings.length);
+    if (impediment && impediment.meetings) {
+      result = this.getMeeting(impediment, impediment.meetings.length);
     }
 
     return result;
@@ -84,29 +83,26 @@ export class ImpedimentService extends YaService {
 
 
   public initDailyMeeting(impediment: Impediment, day: number) {
-    
-        const result = SprintFactory.createProgress();
-    
-        result.storyId = story.id;
-        result.day = day;
-        result.date = new Date();
-    
-        const previous = this.getProgress(story, day - 1);
-        if (previous) {
-          result.previous = previous.previous + previous.daily;
-          result.total = previous.previous + previous.daily;
-          result.daily = 0;
-          result.remaining = story.estimate - (previous.previous + previous.daily);
-        } else {
-          result.previous = 0;
-          result.daily = 0;
-          result.total = 0;
-          result.remaining = story.estimate;
-        }
-    
-        this.setMeeting(story, result);
-    
-      }
+
+    const result = SprintFactory.createImpedimentMeeting();
+
+    result.day = day;
+    result.date = new Date();
+
+    const previous = this.getMeeting(impediment, day - 1);
+    if (previous) {
+      result.previous = previous.previous + previous.daily;
+      result.total = previous.previous + previous.daily;
+      result.daily = 0;
+    } else {
+      result.previous = 0;
+      result.daily = 0;
+      result.total = 0;
+    }
+
+    //this.setMeeting(story, result);
+
+  }
 
 
 }
