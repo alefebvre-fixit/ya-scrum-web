@@ -186,7 +186,6 @@ export class SprintService {
     });
   }
 
-
   public startNewDailyMeeting(sprint: Sprint, stories: Story[]) {
 
     if (!sprint.meeting.day) {
