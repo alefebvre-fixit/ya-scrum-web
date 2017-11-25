@@ -1,6 +1,7 @@
 import { YaService } from './ya.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as firebase from 'firebase/app';
 
 import { Sprint, Impediment, Meeting, SprintFactory } from '../models';
 import { AuthenticationService } from './authentication.service';
@@ -81,15 +82,23 @@ export class ImpedimentService extends YaService {
 
   }
 
+  public removeImpediment(sprint: Sprint) {
+    if (sprint.impediment) {
+      this.sprintCollection().doc(sprint.id).update({
+        impediment: firebase.firestore.FieldValue.delete()
+      });
+    }
+  }
 
-  public initDailyMeeting(impediment: Impediment, day: number) {
+
+  public startMeeting(sprint: Sprint, day: number) {
 
     const result = SprintFactory.createImpedimentMeeting();
-
+    
     result.day = day;
     result.date = new Date();
 
-    const previous = this.getMeeting(impediment, day - 1);
+    const previous = this.getMeeting(sprint.impediment, day - 1);
     if (previous) {
       result.previous = previous.previous + previous.daily;
       result.total = previous.previous + previous.daily;
@@ -100,7 +109,23 @@ export class ImpedimentService extends YaService {
       result.total = 0;
     }
 
-    //this.setMeeting(story, result);
+    this.setMeeting(sprint, result);
+
+  }
+
+  private setMeeting(sprint: Sprint, meeting: Meeting) {
+
+    if (sprint.impediment === undefined) {
+      return;
+    }
+
+    if (sprint.impediment.meetings === undefined) {
+      sprint.impediment.meetings = new Array<Meeting>();
+    }
+
+    if (meeting.day > 0) {
+      sprint.impediment.meetings[meeting.day - 1] = meeting;
+    }
 
   }
 

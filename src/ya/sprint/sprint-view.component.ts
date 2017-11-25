@@ -143,6 +143,12 @@ export class SprintViewComponent implements OnInit {
     }
   }
 
+  removeImpediment() {
+    if (this.sprint.impediment) {
+      this.impedimentService.removeImpediment(this.sprint);
+    }
+  }
+
 
 
 

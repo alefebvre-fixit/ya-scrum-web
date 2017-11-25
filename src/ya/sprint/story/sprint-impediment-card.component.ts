@@ -40,19 +40,15 @@ export class SprintImpedimentCardComponent implements OnInit, OnChanges {
   }
 
   public add() {
-    this.updateProgress(+1);
+    this.incrementTimeSpent(+1);
   }
 
   public remove() {
-    this.updateProgress(-1);
+    this.incrementTimeSpent(-1);
   }
 
-  private updateProgress(increment: number) {
+  private incrementTimeSpent(increment: number) {
     this.meeting = this.impedimentService.incrementTimeSpent(this.sprint, this.meeting, increment);
-  }
-
-  public navigateToDetails(id: string) {
-    this.router.navigate([`/stories/${id}`]);
   }
 
   public isOpen(): boolean {

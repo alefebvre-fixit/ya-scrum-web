@@ -5,23 +5,27 @@
 
         <div class="story-menu">
           <button mat-icon-button (click)="editStory(story)"><mat-icon>edit</mat-icon></button>
-
+          <button mat-icon-button (click)="estimateStory(story)"><mat-icon>monetization_on</mat-icon></button>
           <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
             </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="editStory(story)">
-                <mat-icon>edit</mat-icon>
-                <span>Edit</span>
-              </button>
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="estimateStory(story)">
+              <mat-icon>monetization_on</mat-icon>
+              <span>Estimate</span>
+            </button>
             <button mat-menu-item [disabled]="!story?.id && story?.status==='new'" (click)="deleteStory(story)">
-                <mat-icon>delete</mat-icon>
-                <span>Delete</span>
-              </button>
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
             <button mat-menu-item [disabled]="!story || !sprint" (click)="removeStoryFromSprint(story)">
-                <mat-icon>close</mat-icon>
-                <span>Remove from Sprint</span>
-              </button>
+              <mat-icon>close</mat-icon>
+              <span>Remove from Sprint</span>
+            </button>
           </mat-menu>
         </div>
         <div class="card-header">

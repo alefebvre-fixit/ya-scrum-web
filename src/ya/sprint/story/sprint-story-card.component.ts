@@ -58,7 +58,7 @@ export class SprintStoryCardComponent implements OnInit, OnChanges, AfterViewIni
 
   private updateChart(progress: StoryProgress) {
 
-    if (progress === undefined) {
+    if (!progress){
       return;
     }
 

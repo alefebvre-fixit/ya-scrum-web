@@ -1,0 +1,21 @@
+<div class="dialog-header">
+    <h2>Story Estimate</h2>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<form [formGroup]="storyForm" *ngIf="storyForm" autocomplete="off" novalidate>
+    <div class="dialog-content">
+        <mat-dialog-content>
+            <p>
+                <mat-form-field style="width:50%">
+                    <input type="number" matInput placeholder="estimate" formControlName="estimate">
+                </mat-form-field>
+            </p>
+        </mat-dialog-content>
+    </div>
+    <div class="dialog-action">
+        <mat-dialog-actions align="end">
+            <button mat-button color="secondary" mat-dialog-close [disabled]="loading">CANCEL</button>
+            <button mat-button color="primary" (click)="apply()" [disabled]="!storyForm.valid || loading">APPLY</button>
+        </mat-dialog-actions>
+    </div>
+</form>

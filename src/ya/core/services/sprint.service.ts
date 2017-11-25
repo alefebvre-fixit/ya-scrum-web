@@ -13,6 +13,7 @@ import * as firebase from 'firebase';
 import { SprintStatus, SprintFilter } from 'ya/core/models/sprint';
 
 import { StoryService } from './story.service';
+import { ImpedimentService } from './impediment.service';
 import { StoryStatus } from 'ya/core/models/story';
 
 @Injectable()
@@ -23,6 +24,7 @@ export class SprintService {
     private firebaseApp: FirebaseApp,
     private userService: UserService,
     private storyService: StoryService,
+    private impedimentService: ImpedimentService,
     private dateService: DateService,
     private authentication: AuthenticationService,
   ) {
@@ -73,7 +75,7 @@ export class SprintService {
 
     stories.forEach(story => {
       const latest = this.storyService.getLatestProgress(story);
-      if (latest){
+      if (latest) {
         sprintProgress += latest.total;
       }
     });
@@ -196,7 +198,16 @@ export class SprintService {
     sprint.meeting.status = SprintStatus.OPEN;
     sprint.filter_status = this.getFilterStatus(sprint.status);
 
+
+    if (sprint.impediment) {
+      const meeting = this.impedimentService.getMeeting(sprint.impediment, sprint.meeting.day);
+      if (!meeting) {
+        this.impedimentService.startMeeting(sprint, sprint.meeting.day);
+      }
+    }
+
     if (stories) {
+
       for (const story of stories) {
 
         const progress = this.storyService.getProgress(story, sprint.meeting.day);
@@ -209,11 +220,17 @@ export class SprintService {
 
       }
 
-      this.sprintCollection().doc(sprint.id).update({
+      let updates = {
         meeting: sprint.meeting,
         status: sprint.status,
-        filter_status: sprint.filter_status
-      });
+        filter_status: sprint.filter_status,
+        impediment: sprint.impediment
+      }
+      if (sprint.impediment){
+        updates.impediment = sprint.impediment;
+      }
+
+      this.sprintCollection().doc(sprint.id).update(updates);
     }
   }
 
@@ -274,17 +291,6 @@ export class SprintService {
 
   }
 
-
-  public generateBurndowData(sprint: Sprint, stories: Story[]): any {
-    const result = { labels: [], datas: [] };
-
-    result.labels = this.generateLabels(sprint);
-    result.datas[0] = this.generateIdealCurve(sprint);
-    result.datas[1] = this.generateActualCurve(sprint, stories);
-
-    return result;
-  }
-
   public generateActualCurve(sprint: Sprint, stories: Story[]): Array<any> {
     const result = [];
 
@@ -315,18 +321,7 @@ export class SprintService {
       const remaining = sprint.estimate - ((sprint.estimate * day) / sprint.duration);
       result[day] = remaining;
     }
-
-    return result;
-  }
-
-  public generateLabels(sprint: Sprint): Array<string> {
-    const result: Array<string> = new Array<string>();
-    result.push('0');
-
-    for (let day = 1; day <= sprint.duration; day++) {
-      result.push(day.toString());
-    }
-
+    console.log(result)
     return result;
   }
 

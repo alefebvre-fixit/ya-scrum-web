@@ -8,6 +8,7 @@ import { SprintService, StoryService, UserService } from '@ya-scrum/services';
 import { SimpleDialogComponent } from '@ya-scrum/shared';
 
 import { StoryEditDialogComponent } from './story-edit.dialog';
+import { StoryEstimateDialogComponent } from './story-estimate.dialog';
 
 @Component({
   templateUrl: './story-view.component.html',
@@ -71,10 +72,28 @@ export class StoryViewComponent implements OnInit {
         story: this.story,
       }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-    });
   }
+
+
+  estimateStory(story: Story) {
+
+    if (story === undefined) {
+      return;
+    }
+
+    const dialogRef = this.dialog.open(StoryEstimateDialogComponent, {
+      panelClass: 'app-full-bleed-dialog',
+      data: {
+        story: this.story,
+      }
+    });
+
+  }
+
+
+
+
+
 
   deleteStory(story: Story) {
 
