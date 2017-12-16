@@ -5,6 +5,7 @@ import { PropertyTagModule } from './property-tag';
 import { SectionTitleModule } from './section-title';
 import { PageModule } from './page';
 import { DialogModule } from './dialog';
+import { LetterAvatarModule } from './letter-avatar';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { DialogModule } from './dialog';
     SectionTitleModule,
     PageModule,
     DialogModule,
+    LetterAvatarModule,
   ],
   declarations: [],
   exports: [
@@ -21,7 +23,9 @@ import { DialogModule } from './dialog';
     PropertyTagModule,
     SectionTitleModule,
     PageModule,
-    DialogModule
+    DialogModule,
+    LetterAvatarModule,
+    
   ],
   entryComponents: [],
   providers: []

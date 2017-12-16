@@ -4,7 +4,6 @@ import { MaterialModule } from '@ya-scrum/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NguUtilityModule } from 'ngu-utility/ngu-utility.module';
 import { CovalentMessageModule } from '@covalent/core';
 
 import { InvitePageComponent } from './invite-page.component';
@@ -19,7 +18,6 @@ import { PipeModule } from '@ya-scrum/pipes';
     CommonModule,
     MaterialModule,
     FlexLayoutModule,
-    NguUtilityModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,

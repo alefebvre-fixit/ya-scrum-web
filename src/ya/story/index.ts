@@ -12,8 +12,6 @@ import { CovalentPagingModule } from '@covalent/core';
 import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentMessageModule } from '@covalent/core';
 
-import { NguUtilityModule } from 'ngu-utility/ngu-utility.module'; // <-- import the module
-
 import { StoryGridComponent, StoryGridTitleDirective} from './story-grid.component';
 import { StoryListComponent} from './story-list.component';
 import { StoryViewComponent} from './story-view.component';
@@ -43,7 +41,6 @@ import { StoryCardModule } from './card';
     CovalentPagingModule,
     CovalentDialogsModule,
     CovalentMessageModule,
-    NguUtilityModule,
     SharedModule,
     StoryProgressModule,
     StorySelectorModule,

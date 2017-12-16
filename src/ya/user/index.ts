@@ -4,8 +4,6 @@ import { MaterialModule } from '@ya-scrum/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NguUtilityModule } from 'ngu-utility/ngu-utility.module';
-
 import { UserListComponent } from './user-list.component';
 import { UserPageComponent } from './user-page.component';
 import { UserAccountComponent } from './user-account.component';
@@ -21,7 +19,6 @@ import { InviteModule } from './invite';
     CommonModule,
     MaterialModule,
     FlexLayoutModule,
-    NguUtilityModule,
     FormsModule,
     ReactiveFormsModule,
     SharedModule,

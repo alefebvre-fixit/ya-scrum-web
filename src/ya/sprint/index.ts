@@ -9,7 +9,6 @@ import { CovalentPagingModule } from '@covalent/core';
 import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentMessageModule } from '@covalent/core';
 
-import { NguUtilityModule } from 'ngu-utility/ngu-utility.module'; // <-- import the module
 import { NgxCroppieModule } from '@ya-scrum/croppie';
 
 
@@ -45,7 +44,6 @@ import { SharedModule } from '../shared';
     CovalentPagingModule,
     CovalentDialogsModule,
     CovalentMessageModule,
-    NguUtilityModule,
     NgxCroppieModule,
     SharedModule,
     StoryModule,
