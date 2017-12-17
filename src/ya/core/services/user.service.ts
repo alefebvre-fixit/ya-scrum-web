@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Rx';
 
-import { User, UserFactory, Account, AccountFactory, Group, SignIn, SignUp } from '../models';
+import { Account, AccountFactory, Group, SignIn, User, UserFactory } from '../models';
 import { AuthenticationService } from './authentication.service';
-
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { DocumentReference } from 'firebase/firestore';
 
 
 @Injectable()
 export class UserService {
+
+  private roles = [
+    'Product Manager',
+    'Developer',
+    'QA',
+    'Business Analyst',
+  ];
+
+  private teams = [
+    'Collateral',
+    'Security-Finance'
+  ];
 
   constructor(
     private afs: AngularFirestore,
@@ -21,26 +29,14 @@ export class UserService {
     private afAuth: AngularFireAuth,
   ) {
   }
-  
+
   private userCollection(): AngularFirestoreCollection<User> {
-    return this.afs.collection(this.usersUrl());    
+    return this.afs.collection(this.usersUrl());
   }
 
   private accountCollection(): AngularFirestoreCollection<Account> {
-    return this.afs.collection(this.accountUrl());    
+    return this.afs.collection(this.accountUrl());
   }
-
-  private roles = [
-    "Product Manager",
-    "Developer",
-    "QA",
-    "Business Analyst",
-  ];
-
-  private teams = [
-    "Collateral",
-    "Security-Finance"
-  ];
 
   private usersUrl(): string {
     return this.authentication.baseUrl('users/');
@@ -86,7 +82,7 @@ export class UserService {
   }
 
   public create(user: User): Observable<void> {
-    if (user.id ===  undefined){
+    if (user.id === undefined) {
       user.id = this.afs.createId();
     }
     return Observable.fromPromise(this.userCollection().doc(user.id).set(user));
@@ -151,8 +147,8 @@ export class UserService {
   }
 
   public createAccount(account: Account): Observable<void> {
-    if (account.id === undefined){
-      account.id = this.afs.createId();    
+    if (account.id === undefined) {
+      account.id = this.afs.createId();
     }
     return Observable.fromPromise(this.accountCollection().doc(account.id).set(account));
   }

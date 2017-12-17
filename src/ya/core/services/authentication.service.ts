@@ -6,6 +6,7 @@ import { Group, SignUp, User, Account } from '../models';
 import { UserService } from './user.service';
 
 import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthenticationService {
